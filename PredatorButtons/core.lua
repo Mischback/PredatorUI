@@ -62,6 +62,12 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
 
     -- grab the existing ActionBars
     local ab2 = util.createBar("ActionBar2")
+    local ab3 = util.createBar("ActionBar3")
+    local ab4 = util.createBar("ActionBar4")
+    local ab5 = util.createBar("ActionBar5")
+    local ab6 = util.createBar("ActionBar6")
+    local ab7 = util.createBar("ActionBar7")
+    local ab8 = util.createBar("ActionBar8")
 
 
     -- at this point everything should be done!
