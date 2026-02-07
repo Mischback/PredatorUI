@@ -108,6 +108,26 @@ end
 util.noop = function() end
 
 
+--[[ Lookup the correct page for the primary ActionBar.
+
+  STRING getActionBarPage()
+
+  To be honest, I don't totally understand the inner mechanics of the
+  ActionBar paging. In fact, this is one of the reasons why I just steal
+  Blizzard's default buttons instead of re-implementing them. This function is
+  copied from Blizzard's UI code.
+]]
+util.getActionBarPage = function()
+    local condition = settings.static.BlizzardActionBarPage['DEFAULT']
+    local page = settings.static.BlizzardActionBarPage[settings.playerClass]
+    if page then
+        condition = condition.." "..page
+    end
+    condition = condition.." 1"
+    return condition
+end
+
+
 --[[ Process one single bar.
 
   FRAME createBar()
@@ -129,7 +149,8 @@ util.createBar = function(key)
 
     -- TODO: Does this bar need a size?!
     f:SetSize(48, 48)
-    f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    --f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    f:SetPoint(unpack(PredatorButtonsSettings[key].position))
 
     fetchButtonsFromBar(key, f)
 
