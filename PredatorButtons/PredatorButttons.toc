@@ -1,0 +1,9 @@
+## Interface: 20505
+## Title: PredatorButtons
+## Author: Mischback
+## Version: 0.0.1
+## DefaultState: disabled
+
+settings.lua
+util.lua
+core.lua
