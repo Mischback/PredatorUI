@@ -1,5 +1,6 @@
 ## Interface: 20505
 ## Title: PredatorButtons
+## Notes: Minimal Action Bar replacement
 ## Author: Mischback
 ## Version: 0.0.1
 ## DefaultState: disabled
