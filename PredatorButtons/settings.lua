@@ -16,7 +16,7 @@ local settings = {}
 settings["playerClass"] = nil
 
 
--- These are static settings, primarily lookups.
+-- These are static settings, primarily lookups/constants.
 settings.static = {
     ["NumButtons"] = {
         ["ActionBar"] = NUM_ACTIONBAR_BUTTONS,
@@ -27,6 +27,18 @@ settings.static = {
         ["ActionBar6"] = NUM_MULTIBAR_BUTTONS,
         ["ActionBar7"] = NUM_MULTIBAR_BUTTONS,
         ["ActionBar8"] = NUM_MULTIBAR_BUTTONS,
+        ["StanceBar"] = 10,
+    },
+    ["BlizzardBarName"] = {
+        ["ActionBar"] = "ActionButton",
+        ["ActionBar2"] = "MultiBarBottomLeft",
+        ["ActionBar3"] = "MultiBarBottomRight",
+        ["ActionBar4"] = "MultiBarRight",
+        ["ActionBar5"] = "MultiBarLeft",
+        ["ActionBar6"] = "MultiBar5",
+        ["ActionBar7"] = "MultiBar6",
+        ["ActionBar8"] = "MultiBar7",
+        ["StanceBar"] = "StanceBar",
     },
     ["ButtonPrefix"] = {
         ["ActionBar"] = "ActionButton",
@@ -37,6 +49,7 @@ settings.static = {
         ["ActionBar6"] = "MultiBar5Button",
         ["ActionBar7"] = "MultiBar6Button",
         ["ActionBar8"] = "MultiBar7Button",
+        ["StanceBar"] = "StanceButton",
     },
     -- FIXME: I don't think this is correct!
     ['BlizzardActionBarPage'] = {
@@ -158,6 +171,19 @@ settings.createDefaults = function()
             "LEFT",
             10,
             315,
+        },
+    }
+
+    bars["StanceBar"] = {
+        ["buttons"] = 10,
+        ["columns"] = 10,
+        ["sizeX"] = 30,
+        ["sizeY"] = 30,
+        ["padding"] = 3,
+        ["position"] = {
+            "LEFT",
+            10,
+            360,
         },
     }
 

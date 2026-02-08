@@ -6,5 +6,5 @@
 ## DefaultState: disabled
 
 settings.lua
-util.lua
 core.lua
+init.lua
