@@ -18,6 +18,17 @@ settings["playerClass"] = nil
 
 -- These are static settings, primarily lookups/constants.
 settings.static = {
+    ["BarName"] = {
+        ["ActionBar"] = "PBActionBar1",
+        ["ActionBar2"] = "PBActionBar2",
+        ["ActionBar3"] = "PBActionBar3",
+        ["ActionBar4"] = "PBActionBar4",
+        ["ActionBar5"] = "PBActionBar5",
+        ["ActionBar6"] = "PBActionBar6",
+        ["ActionBar7"] = "PBActionBar7",
+        ["ActionBar8"] = "PBActionBar8",
+        ["StanceBar"] = "PBStanceBar",
+    },
     ["NumButtons"] = {
         ["ActionBar"] = NUM_ACTIONBAR_BUTTONS,
         ["ActionBar2"] = NUM_MULTIBAR_BUTTONS,

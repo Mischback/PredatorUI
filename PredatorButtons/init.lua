@@ -6,13 +6,13 @@
 local ADDON_NAME, ns = ...
 
 
-
 -- ==============
 -- LOCALIZE STUFF
 -- ==============
 -- Grab other modules of *this* addon
 local settings = ns.settings
 local core = ns.core
+local config = ns.config
 
 
 local ctrl = CreateFrame("FRAME", nil, UIParent)
@@ -79,6 +79,11 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     for i = 1, settings.static.NumButtons["StanceBar"] do
         _G[settings.static.ButtonPrefix["StanceBar"]..i]:SetParent(sb)
     end
+
+
+    -- setup the slash-commands
+    SLASH_PREDATORBUTTONS1, SLASH_PREDATORBUTTONS2 = "/predatorbuttons", "/pb"
+    SlashCmdList["PREDATORBUTTONS"] = config.SlashCmdHandler
 
 
     -- at this point everything should be done!

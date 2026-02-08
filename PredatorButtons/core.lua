@@ -145,11 +145,13 @@ end
   bar specified by ``key``.
 ]]
 core.createBar = function(key)
-    local f = CreateFrame("FRAME", nil, UIParent, "SecureHandlerStateTemplate")
+    local f = CreateFrame("FRAME", settings.static.BarName[key], UIParent, "SecureHandlerStateTemplate")
 
-    -- TODO: Does this bar need a size?!
-    f:SetSize(48, 48)
-    --f:SetPoint("CENTER", UIParent, "CENTER", 0, 0)
+    f:SetSize(
+        min(PredatorButtonsSettings[key].buttons, PredatorButtonsSettings[key].columns)*(PredatorButtonsSettings[key].sizeX+(2*PredatorButtonsSettings[key].padding)),
+        ceil(PredatorButtonsSettings[key].buttons/PredatorButtonsSettings[key].columns)*(PredatorButtonsSettings[key].sizeY+(2*PredatorButtonsSettings[key].padding))
+    )
+
     f:SetPoint(unpack(PredatorButtonsSettings[key].position))
 
     fetchButtonsFromBar(key, f)
