@@ -4,6 +4,7 @@
 ## Author: Mischback
 ## Version: 0.0.1
 ## DefaultState: disabled
+## SavedVariablesPerCharacter: PredatorButtonsSettings
 
 settings.lua
 core.lua

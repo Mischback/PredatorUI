@@ -23,7 +23,7 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     local _
 
     -- Initialize the Saved Variables
-    if not PredatorButtonsSettings then
+    if PredatorButtonsSettings == nil then
         print("Creating default settings for ", ADDON_NAME)
         PredatorButtonsSettings = settings.createDefaults()
     end
