@@ -70,11 +70,11 @@ end
 
 --[[ Fetch the buttons from a (Blizzard) bar and move them to this addon's frames.
 
-  VOID fetchButtonsFromBar()
+  VOID processBarButtons()
   :param: key STRING - The string to access settings
   :param: parent FRAME - The new frame to attach the buttons to
 ]]
-local fetchButtonsFromBar = function(key, parent)
+core.processBarButtons = function(key, parent)
     local i, btn
     local sizeX = PredatorButtonsSettings[key].sizeX
     local sizeY = PredatorButtonsSettings[key].sizeY
@@ -131,7 +131,7 @@ end
 --[[ Process one single bar.
 
   FRAME createBar()
-  :param: key STRINBG - The string to access relevant settings
+  :param: key STRING - The string to access relevant settings
 
   Blizzard's default UI provides several different bars for the player. In fact,
   there are even more than are accessible by default.
@@ -154,7 +154,7 @@ core.createBar = function(key)
 
     f:SetPoint(unpack(PredatorButtonsSettings[key].position))
 
-    fetchButtonsFromBar(key, f)
+    core.processBarButtons(key, f)
 
     return f
 end

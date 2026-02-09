@@ -80,6 +80,8 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
         _G[settings.static.ButtonPrefix["StanceBar"]..i]:SetParent(sb)
     end
 
+    -- TODO: PetBar
+
 
     -- setup the slash-commands
     SLASH_PREDATORBUTTONS1, SLASH_PREDATORBUTTONS2 = "/predatorbuttons", "/pb"
