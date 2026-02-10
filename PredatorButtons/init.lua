@@ -14,6 +14,9 @@ local settings = ns.settings
 local core = ns.core
 local config = ns.config
 
+-- Explicit GLOBAL access to this addon
+PredatorButtons = {}
+
 
 local ctrl = CreateFrame("FRAME", nil, UIParent)
 ctrl:RegisterEvent("ADDON_LOADED")
@@ -83,11 +86,20 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     -- TODO: PetBar
 
 
+    -- STYLING
+    --
+    -- We provide one single function to other addons (namely, skins for the
+    -- button handled by this addon), ``applyStyle()``. It will call the
+    -- skin's function on every (visible) button to allow styling.
+    PredatorButtons.applyStyle = core.applyStyle
+
     -- setup the slash-commands
     SLASH_PREDATORBUTTONS1, SLASH_PREDATORBUTTONS2 = "/predatorbuttons", "/pb"
     SlashCmdList["PREDATORBUTTONS"] = config.SlashCmdHandler
 
 
     -- at this point everything should be done!
+    -- TODO: provide a dedicated function for *stylish* user feedback 
+    --       colored addon name + message or something like that.
     print(ADDON_NAME, "loaded...")
 end)

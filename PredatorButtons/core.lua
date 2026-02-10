@@ -128,6 +128,36 @@ core.getActionBarPage = function()
 end
 
 
+--[[ Apply a style function to all visible buttons of a single bar.
+
+  VOID applyStyleToBar()
+  :param: key STRING - The string to access relevant settings
+  :param: func FUNCTION - The skin's styling function. Will be called with
+                          the current button.
+]]
+local applyStyleToBar = function(key, func)
+    local i, btn
+    for i = 1, PredatorButtonsSettings[key].buttons do
+        btn = _G[settings.static.ButtonPrefix[key]..i]
+        func(btn)
+    end
+end
+
+
+--[[ Apply a style to all bars.
+
+  VOID applyStyle()
+  :param: func FUNCTION - The skin's styling function. Will be called on all
+                          bars for all (visible) buttons.
+]]
+core.applyStyle = function(func)
+    local key, _
+    for key, _ in pairs(settings.static.BarName) do
+        applyStyleToBar(key, func)
+    end
+end
+
+
 --[[ Process one single bar.
 
   FRAME createBar()

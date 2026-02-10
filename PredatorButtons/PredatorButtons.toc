@@ -1,5 +1,6 @@
 ## Interface: 20505
-## Title: PredatorButtons
+## Category: Action Bars
+## Title: |cff79c947Predator|rButtons
 ## Notes: Minimal Action Bar replacement
 ## Author: Mischback
 ## Version: 0.0.1
