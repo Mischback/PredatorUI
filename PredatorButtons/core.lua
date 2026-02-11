@@ -212,6 +212,7 @@ core.createBar = function(key)
     )
 
     f:SetPoint(unpack(PredatorButtonsSettings[key].position))
+    f:SetFrameLevel(100)
 
     core.processBarButtons(key, f)
 
