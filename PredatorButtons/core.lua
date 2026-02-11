@@ -158,6 +158,18 @@ core.applyStyle = function(func)
 end
 
 
+--[[
+]]
+core.hideBlizzardActionBarArt = function()
+    local f, v
+    for _, v in pairs(settings.static.BlizzardDefaultFrames) do
+        f = _G[v]
+        f:SetAlpha(0)
+        f:Hide()
+    end
+end
+
+
 --[[ Process one single bar.
 
   FRAME createBar()

@@ -83,7 +83,6 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
         _G[settings.static.ButtonPrefix["StanceBar"]..i]:SetParent(sb)
     end
 
-    -- TODO: PetBar
     local petb = core.createBar("PetActionBar")
     _G[settings.static.BlizzardBarName["PetActionBar"]]:SetParent(petb)
 
@@ -94,6 +93,7 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     -- button handled by this addon), ``applyStyle()``. It will call the
     -- skin's function on every (visible) button to allow styling.
     PredatorButtons.applyStyle = core.applyStyle
+    core.hideBlizzardActionBarArt()
 
     -- setup the slash-commands
     SLASH_PREDATORBUTTONS1, SLASH_PREDATORBUTTONS2 = "/predatorbuttons", "/pb"
