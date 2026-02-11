@@ -1,5 +1,8 @@
---[[
+--[[ Initialize the addon.
 
+  This module actually launches the addon, triggers the setup of the bars,
+  establishes the slash command (/pb config) and injects the only public
+  function into the global namespace (``PredatorButtons.applyStyle()``).
 ]]
 
 -- Provide addon-specific environment, don't work on global namespace

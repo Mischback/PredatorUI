@@ -1,5 +1,10 @@
---[[
+--[[ Provide settings for the addon.
 
+  Most of these settings are used throughout the addon to address the correct
+  elements of Blizzard's default UI and provide related constants.
+
+  However, this module also provides the default values for the addon's
+  SavedVariables (PredatorButtonsSettings).
 ]]
 
 -- Provide addon-specific environment, don't work on global namespace

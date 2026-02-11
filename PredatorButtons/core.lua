@@ -1,5 +1,14 @@
---[[
+--[[ Provide the addon's core functionality.
 
+  This addon does not really create ActionButtons for the player, it just
+  steals the buttons from Blizzard's UI, makes them configurable and prohibits
+  further changes to those buttons.
+
+  The styling of buttons has to be done with a dedicated addon. It's as simple
+  as providing a styling function, which will be called for all of the visible
+  ActionButtons.
+
+  This addon will take care of getting rid of Blizzard's default UI artwork.
 ]]
 
 -- Provide addon-specific environment, don't work on global namespace

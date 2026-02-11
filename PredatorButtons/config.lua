@@ -1,5 +1,17 @@
---[[
+--[[ Provide the configuration mode of the addon.
 
+  Activating the configuration mode (/pb config) will display frames above the
+  actionbars. Clicking those bars will cycle through different configuration
+  modes. Scrolling (while hovering the bar) will adjust the values.
+
+  - "Buttons": Adjust the number of visible buttons for that bar (1-12 for most
+    bars).
+  - "Columns": Adjust the number of columns for that bar (1-12 for most bars).
+  - "Padding": Adjust the distance between buttons, specified in pixel.
+  - "Size": Adjust horizontal and vertical size of the button (hold SHIFT while
+    scrolling for vertical adjustment).
+  - "Move": In this mode, dragging of the bars is possible. Just drag to the
+    desired position.
 ]]
 
 -- Provide addon-specific environment, don't work on global namespace
@@ -184,12 +196,22 @@ local configScrollHandler = function (configFrame, delta)
 end
 
 
+--[[ Event handler for dragging.
+
+  VOID dragBarStart()
+  :param: configFrame FRAME - The dragged frame.
+]]
 local dragBarStart = function(configFrame)
     -- configFrame:ClearAllPoints()
     configFrame:StartMoving()
 end
 
 
+--[[ Event handler for dragging. Stores the new position.
+
+  VOID dragBarStop()
+  :param: configFrame FRAME - The dragged frame.
+]]
 local dragBarStop = function(configFrame)
     configFrame:StopMovingOrSizing()
 
