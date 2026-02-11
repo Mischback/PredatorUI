@@ -101,8 +101,5 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
 
 
     -- at this point everything should be done!
-    -- TODO: provide a dedicated function for *stylish* user feedback 
-    --       colored addon name + message or something like that.
-    print(ADDON_NAME, "loaded...")
     core.debugging("loaded successfully!")
 end)

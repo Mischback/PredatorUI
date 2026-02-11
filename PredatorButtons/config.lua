@@ -185,7 +185,7 @@ end
 
 
 local dragBarStart = function(configFrame)
-    configFrame:ClearAllPoints()
+    -- configFrame:ClearAllPoints()
     configFrame:StartMoving()
 end
 
@@ -193,11 +193,10 @@ end
 local dragBarStop = function(configFrame)
     configFrame:StopMovingOrSizing()
 
-    local anchor, _, relAnchor, xOffset, yOffset = configFrame:GetPoint()
-    print(anchor)
+    local anchor, _, relAnchor, xOffset, yOffset = configFrame:GetPoint(1)
     _G[settings.static.BarName[configFrame.key]]:ClearAllPoints()
-    _G[settings.static.BarNAme[configFrame.key]]:SetPoint(anchor, UIParent, relAnchor, xOffset, yOffset)
-    PredatorButtonsSettings[configFrame.key].position = { anchor, x, y }
+    _G[settings.static.BarName[configFrame.key]]:SetPoint(anchor, UIParent, relAnchor, xOffset, yOffset)
+    PredatorButtonsSettings[configFrame.key].position = { anchor, xOffset, yOffset }
 end
 
 
@@ -222,26 +221,29 @@ local cycleConfigMode = function(configFrame, btn)
     elseif configFrame.mode == PBCONFIGMODE["COLUMNS"] then
         configFrame.mode = PBCONFIGMODE["MOVE"]
 
-        -- configFrame:RegisterForDrag("LeftButton")
-        -- configFrame:SetMovable(true)
-        -- configFrame:SetScript("OnDragStart", dragBarStart)
-        -- configFrame:SetScript("OnDragStop", dragBarStop)
+        configFrame:RegisterForDrag("LeftButton")
+        configFrame:SetMovable(true)
+        configFrame:SetScript("OnDragStart", dragBarStart)
+        configFrame:SetScript("OnDragStop", dragBarStop)
 
         configFrame.curMode:SetFormattedText(
             "Mode: %s",
             "Move")
     elseif configFrame.mode == PBCONFIGMODE["MOVE"] then
-        configFrame:RegisterForDrag()
-        -- configFrame:SetMovable(false)
-        -- configFrame:SetScript("OnDragStart", nil)
-        -- configFrame:SetScript("OnDragStop", nil)
         configFrame.mode = PBCONFIGMODE["PADDING"]
+
+        configFrame:RegisterForDrag()
+        configFrame:SetMovable(false)
+        configFrame:SetScript("OnDragStart", nil)
+        configFrame:SetScript("OnDragStop", nil)
+
         configFrame.curMode:SetFormattedText(
             "Mode: %s (%d)",
             "Padding",
             PredatorButtonsSettings[configFrame.key].padding)
     elseif configFrame.mode == PBCONFIGMODE["PADDING"] then
         configFrame.mode = PBCONFIGMODE["SIZE"]
+
         configFrame.curMode:SetFormattedText(
             "Mode: %s (%d, %d)",
             "Size",
@@ -249,6 +251,7 @@ local cycleConfigMode = function(configFrame, btn)
             PredatorButtonsSettings[configFrame.key].sizeY)
     elseif configFrame.mode == PBCONFIGMODE["SIZE"] then
         configFrame.mode = PBCONFIGMODE["BUTTONS"]
+
         configFrame.curMode:SetFormattedText(
             "Mode: %s (%d)",
             "Buttons",
