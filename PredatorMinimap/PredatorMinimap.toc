@@ -1,0 +1,12 @@
+## Interface: 20505
+## Category: Map
+## Title: |cff79c947Predator|rMinimap
+## Notes: Very simple square minimap replacement
+## Author: Mischback
+## Version: v0.0.1
+## DefaultState: disabled
+
+settings.lua
+core.lua
+init.lua
+
