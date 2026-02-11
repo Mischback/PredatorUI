@@ -28,6 +28,7 @@ settings.static = {
         ["ActionBar7"] = "PBActionBar7",
         ["ActionBar8"] = "PBActionBar8",
         ["StanceBar"] = "PBStanceBar",
+        ["PetActionBar"] = "PBPetBar",
     },
     ["NumButtons"] = {
         ["ActionBar"] = NUM_ACTIONBAR_BUTTONS,
@@ -39,6 +40,7 @@ settings.static = {
         ["ActionBar7"] = NUM_MULTIBAR_BUTTONS,
         ["ActionBar8"] = NUM_MULTIBAR_BUTTONS,
         ["StanceBar"] = 10,
+        ["PetActionBar"] = 10,
     },
     ["BlizzardBarName"] = {
         ["ActionBar"] = "ActionButton",
@@ -50,6 +52,7 @@ settings.static = {
         ["ActionBar7"] = "MultiBar6",
         ["ActionBar8"] = "MultiBar7",
         ["StanceBar"] = "StanceBar",
+        ["PetActionBar"] = "PetActionBar",
     },
     ["ButtonPrefix"] = {
         ["ActionBar"] = "ActionButton",
@@ -61,6 +64,7 @@ settings.static = {
         ["ActionBar7"] = "MultiBar6Button",
         ["ActionBar8"] = "MultiBar7Button",
         ["StanceBar"] = "StanceButton",
+        ["PetActionBar"] = "PetActionButton",
     },
     -- FIXME: I don't think this is correct!
     ['BlizzardActionBarPage'] = {
@@ -195,6 +199,19 @@ settings.createDefaults = function()
             "LEFT",
             10,
             360,
+        },
+    }
+
+    bars["PetActionBar"] = {
+        ["buttons"] = 10,
+        ["columns"] = 10,
+        ["sizeX"] = 30,
+        ["sizeY"] = 30,
+        ["padding"] = 3,
+        ["position"] = {
+            "LEFT",
+            10,
+            405,
         },
     }
 

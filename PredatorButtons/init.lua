@@ -84,6 +84,8 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     end
 
     -- TODO: PetBar
+    local petb = core.createBar("PetActionBar")
+    _G[settings.static.BlizzardBarName["PetActionBar"]]:SetParent(petb)
 
 
     -- STYLING

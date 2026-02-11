@@ -311,6 +311,7 @@ local createConfigFrames = function()
     configFrames["ActionBar7"] = createBarConfigFrame("ActionBar7")
     configFrames["ActionBar8"] = createBarConfigFrame("ActionBar8")
     configFrames["StanceBar"] = createBarConfigFrame("StanceBar")
+    configFrames["PetActionBar"] = createBarConfigFrame("PetActionBar")
 end
 
 
