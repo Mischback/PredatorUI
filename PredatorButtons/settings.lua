@@ -18,6 +18,12 @@ settings["playerClass"] = nil
 
 -- These are static settings, primarily lookups/constants.
 settings.static = {
+    ["design"] = {
+        ["colorHex"] = "79c947",
+        ["chatFontColor"] = { 0.47, 0.78, 0.28, 1},
+        ["configFrameFontColor"] = {255, 255, 255, 1},
+        ["configFrameBgColor"] = { 0.47, 0.78, 0.28, 0.75},
+    },
     ["BarName"] = {
         ["ActionBar"] = "PBActionBar1",
         ["ActionBar2"] = "PBActionBar2",

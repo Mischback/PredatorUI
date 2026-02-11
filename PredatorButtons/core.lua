@@ -68,6 +68,30 @@ local moveButton = function(btn, pos)
 end
 
 
+--[[ Apply a style function to all visible buttons of a single bar.
+
+  VOID applyStyleToBar()
+  :param: key STRING - The string to access relevant settings
+  :param: func FUNCTION - The skin's styling function. Will be called with
+                          the current button.
+]]
+local applyStyleToBar = function(key, func)
+    local i, btn
+    for i = 1, PredatorButtonsSettings[key].buttons do
+        btn = _G[settings.static.ButtonPrefix[key]..i]
+        func(btn)
+    end
+end
+
+
+--[[ Debugging to ChatFrame
+  VOID debugging(STRING text)
+]]
+core.debugging = function(text)
+    DEFAULT_CHAT_FRAME:AddMessage('|cff79c947Predator|r|cffffffffButtons|r: |cffeeeeee'..text..'|r')
+end
+
+
 --[[ Fetch the buttons from a (Blizzard) bar and move them to this addon's frames.
 
   VOID processBarButtons()
@@ -125,22 +149,6 @@ core.getActionBarPage = function()
     end
     condition = condition.." 1"
     return condition
-end
-
-
---[[ Apply a style function to all visible buttons of a single bar.
-
-  VOID applyStyleToBar()
-  :param: key STRING - The string to access relevant settings
-  :param: func FUNCTION - The skin's styling function. Will be called with
-                          the current button.
-]]
-local applyStyleToBar = function(key, func)
-    local i, btn
-    for i = 1, PredatorButtonsSettings[key].buttons do
-        btn = _G[settings.static.ButtonPrefix[key]..i]
-        func(btn)
-    end
 end
 
 

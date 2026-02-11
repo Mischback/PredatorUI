@@ -269,22 +269,24 @@ end
 local createBarConfigFrame = function(key)
     local f = CreateFrame("FRAME", settings.static.BarName[key].."Mover", UIParent)
     f:SetAllPoints(_G[settings.static.BarName[key]])
-    f:SetFrameLevel(_G[settings.static.ButtonPrefix[key].."1"]:GetFrameLevel()+50)
+    f:SetFrameLevel(_G[settings.static.ButtonPrefix[key].."1"]:GetFrameLevel()+500)
 
     f.tex = f:CreateTexture(nil, "BACKGROUND")
     f.tex:SetAllPoints()
-    -- TODO: evaluate the color!
-    f.tex:SetColorTexture(0, 1, 0, 0.75)
+    f.tex:SetColorTexture(unpack(settings.static.design.configFrameBgColor))
 
-    -- TODO: evaluate the font face
-    f.caption = f:CreateFontString(nil, "ARTWORK", "GameTooltipText")
-    f.caption:SetPoint("TOPLEFT")
+    f.caption = f:CreateFontString(nil, "ARTWORK", "NumberFont_Shadow_Small")
+    f.caption:SetTextColor(unpack(settings.static.design.configFrameFontColor))
+    f.caption:SetPoint("TOPLEFT", 3, -3)
     f.caption:SetText(settings.static.BarName[key])
 
-    -- TODO: evaluate the font face
-    f.curMode = f:CreateFontString(nil, "ARTWORK", "GameTooltipText")
+    f.curMode = f:CreateFontString(nil, "ARTWORK", "NumberFont_Shadow_Small")
+    f.curMode:SetTextColor(unpack(settings.static.design.configFrameFontColor))
     f.curMode:SetPoint("TOPLEFT", f.caption, "BOTTOMLEFT", 5, -5)
-    f.curMode:SetText("Mode: Buttons")
+    f.curMode:SetFormattedText(
+        "Mode: %s (%d)",
+        "Buttons",
+         PredatorButtonsSettings[key].buttons)
 
     f.key = key
     f.mode = PBCONFIGMODE["BUTTONS"]
