@@ -75,15 +75,15 @@ end
     :param: self FRAME - **Must** be the Minimap, not any other frame!
     :param: delta INT - Provides the scroll offset/direction
 ]]
-local handlerZoom = function(self, delta)
-    curZoom = self:GetZoom()
+local handlerZoom = function(mm, delta)
+    curZoom = mm:GetZoom()
 
     if delta > 0 and curZoom < settings.static.blizzard["maxZoomLevel"] then
-        self:SetZoom(curZoom + 1)
+        mm:SetZoom(curZoom + 1)
     end
 
     if delta < 0 and curZoom > 0 then
-        self:SetZoom(curZoom - 1)
+        mm:SetZoom(curZoom - 1)
     end
     core.resetZoom()
 end
@@ -119,6 +119,51 @@ local autoResetZoom = function()
 end
 
 
+--[[ Grab and modify the mail icon
+
+  VOID modifyMailIcon()
+  :param: frame FRAME - Blizzard's mail icon
+
+  Removes Blizzard's visuals completely and replaces them with a custom mail
+  icon.
+]]
+local modifyMailIcon = function(frame)
+    alwaysHide(_G["MiniMapMailBorder"])
+    alwaysHide(_G["MiniMapMailIcon"])
+
+    -- create an alternative icon
+    -- FIXME: Provie an actual texture!
+    frame.newIcon = frame:CreateTexture(nil, "ARTWORK")
+    frame.newIcon:SetAllPoints()
+    frame.newIcon:SetColorTexture(0, 1, 0, 1)
+
+    -- TODO: Make the position configurable
+    frame:ClearAllPoints()
+    frame:SetPoint("BOTTOMRIGHT", core.minimap, "BOTTOMRIGHT", -3, 3)
+    frame:SetSize(18, 18)
+end
+
+
+--[[ Grab and modify the tracker icon
+
+  VOID modifyTrackerIcon()
+  :param: frame FRAME - Blizzard's tracker icon
+
+  Removes Blizzard's decorational elements but keeps the actual icon.
+]]
+local modifyTrackerIcon = function(frame)
+    frame:SetParent(core.minimap)
+
+    alwaysHide(_G["MiniMapTrackingBackground"])
+    alwaysHide(_G["MiniMapTrackingOverlay"])
+    alwaysHide(_G["MiniMapTrackingButtonBorder"])
+
+    -- TODO: Make the position configurable
+    frame:ClearAllPoints()
+    frame:SetPoint("TOPLEFT", core.minimap, "TOPLEFT", -4, 4)
+end
+
+
 --[[ Just do nothing.
 
   VOID noop()
@@ -146,6 +191,8 @@ core.resetZoom = core.noop
 core.setupMinimap = function()
     -- get a reference
     core.minimap = _G["Minimap"]
+    core.mailIcon = _G["MiniMapMailFrame"]
+    core.trackerIcon = _G["MiniMapTracking"]
 
     -- save the maximum zoom level for later usage
     -- Ref: https://warcraft.wiki.gg/wiki/API_Minimap_GetZoomLevels
@@ -160,6 +207,19 @@ core.setupMinimap = function()
     _G["GetMinimapShape"] = setMinimapShape
     core.minimap:SetMaskTexture("Interface\\Buttons\\WHITE8X8")
 
+    -- Mail Icon
+    modifyMailIcon(core.mailIcon)
+
+    -- Tracker Icon
+    modifyTrackerIcon(core.trackerIcon)
+
+    -- LFG status Icon
+
+    -- Battlefield
+    -- TODO: process this! Thing is, I want to provide the LFG queue thingy in
+    --       the top right corner and this one below that. So I need the LFG
+    --       queue thingy (and its position) as reference.
+
     -- zooming with the scroll wheel
     core.minimap:EnableMouseWheel(true)
     core.minimap:SetScript("OnMouseWheel", handlerZoom)
@@ -168,6 +228,13 @@ core.setupMinimap = function()
     if settings.user["autoResetZoom"] then
         core.resetZoom = autoResetZoom
     end
+
+    -- TODO: Provide config mode, which allows size adjustment!
+    -- FIXME: Just using SetSize() somehow applies scaling?!
+    -- core.minimap:SetSize(200, 200)
+    -- print(core.minimap:GetEffectiveScale())
+    -- print(core.minimap:GetHeight())
 end
+
 
 ns.core = core
