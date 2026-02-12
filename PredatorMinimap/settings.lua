@@ -16,7 +16,17 @@ settings.static = {
         ["chatFontColor"] = { 0.47, 0.78, 0.28, 1},
         ["configFrameFontColor"] = {255, 255, 255, 1},
         ["configFrameBgColor"] = { 0.47, 0.78, 0.28, 0.75},
-    }
+    },
+    ["blizzard"] = {
+        ["maxZoomLevel"] = nil,
+    },
+}
+
+-- TODO: The following settings should be made into SavedVariables!
+settings.user = {
+    ["defaultZoomLevel"] = 0,
+    ["autoResetZoom"] = true,
+    ["resetZoomDelay"] = 3,
 }
 
 

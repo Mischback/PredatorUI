@@ -70,6 +70,73 @@ local hideDefaultStuff = function()
 end
 
 
+--[[
+    VOID handlerZoom()
+    :param: self FRAME - **Must** be the Minimap, not any other frame!
+    :param: delta INT - Provides the scroll offset/direction
+]]
+local handlerZoom = function(self, delta)
+    curZoom = self:GetZoom()
+
+    if delta > 0 and curZoom < settings.static.blizzard["maxZoomLevel"] then
+        self:SetZoom(curZoom + 1)
+    end
+
+    if delta < 0 and curZoom > 0 then
+        self:SetZoom(curZoom - 1)
+    end
+    core.resetZoom()
+end
+
+
+--[[ Applies the (user-specified) default zoom level.
+
+  VOID setDefaultZoom()
+]]
+local setDefaultZoom = function()
+    core.minimap:SetZoom(settings.user["defaultZoomLevel"])
+end
+
+
+--[[ Reset the Minimap zoom level after a user-provided delay.
+
+  VOID autoResetZoom()
+
+  This is working and *good enough*.
+  ``handlerZoom()`` calls the function ``core.resetZoom()``, which is either
+  a noop or this function (depending on SavedVariables).
+  The problem with this approach: The timer is activated after the very first
+  zooming activity, so it *may* trigger while the user is still messing with
+  the Minimap.
+
+  TODO:
+  A better implementation would work like this:
+  The zoom handler *flags* the requirement to be resetted, while the actual
+  timer is called/triggered when the mouse pointer leaves the frame.
+]]
+local autoResetZoom = function()
+    C_Timer.After(settings.user["resetZoomDelay"], setDefaultZoom)
+end
+
+
+--[[ Just do nothing.
+
+  VOID noop()
+
+  This is meant to replace other functions when their execution is not desired.
+]]
+core.noop = function()
+    return
+end
+
+
+--[[ Used in the ``handlerZoom()`` to setup a time-based auto reset or not.
+
+  VOID resetZoom()
+]]
+core.resetZoom = core.noop
+
+
 --[[ Provide a dedicated setup.
 
   VOID setupMinimap()
@@ -80,12 +147,27 @@ core.setupMinimap = function()
     -- get a reference
     core.minimap = _G["Minimap"]
 
+    -- save the maximum zoom level for later usage
+    -- Ref: https://warcraft.wiki.gg/wiki/API_Minimap_GetZoomLevels
+    --
+    -- Used by SetZoom(), returned by GetZoom()
+    settings.static.blizzard["maxZoomLevel"] = core.minimap:GetZoomLevels() - 1
+
     -- get rid of default stuff
     hideDefaultStuff()
 
     -- make the minimap square!
     _G["GetMinimapShape"] = setMinimapShape
     core.minimap:SetMaskTexture("Interface\\Buttons\\WHITE8X8")
+
+    -- zooming with the scroll wheel
+    core.minimap:EnableMouseWheel(true)
+    core.minimap:SetScript("OnMouseWheel", handlerZoom)
+
+    -- auto reset zoom
+    if settings.user["autoResetZoom"] then
+        core.resetZoom = autoResetZoom
+    end
 end
 
 ns.core = core
