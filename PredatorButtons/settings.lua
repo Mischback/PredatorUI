@@ -93,6 +93,7 @@ settings.static = {
         "MicroMenuContainer",
         "BagsBar",
         "StatusTrackingBarManager",
+        "StanceBar",
     },
 }
 
