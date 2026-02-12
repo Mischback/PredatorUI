@@ -13,9 +13,14 @@ local core = ns.core
 local ctrl = CreateFrame("FRAME", nil, UIParent)
 ctrl:RegisterEvent("ADDON_LOADED")
 ctrl:SetScript("OnEvent", function(self, event, addon)
-    if addon ~= ADDON_NAME then return end
+    if event == "ADDON_LOADED" then
+        if addon ~= ADDON_NAME then return end
 
+        core.setupMinimap()
 
-    -- at this point everything should be done!
-    core.debugging("loaded successfully!")
+        -- at this point everything should be done!
+        core.debugging("loaded successfully!")
+        return
+    end
+
 end)
