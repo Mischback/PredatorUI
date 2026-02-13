@@ -174,8 +174,9 @@ local modifyLfgIcon = function(frame)
 
     alwaysHide(_G["LFGMinimapFrameBorder"])
 
+    -- TODO: Make the position configurable
     frame:ClearAllPoints()
-    frame:SetPoint("TOPRIGHT", core.minimap, "TOPRIGHT", -4, 4)
+    frame:SetPoint("TOPRIGHT", core.minimap, "TOPRIGHT", 5, 5)
 end
 
 
