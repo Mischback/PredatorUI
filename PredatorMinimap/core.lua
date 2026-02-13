@@ -132,10 +132,15 @@ local modifyMailIcon = function(frame)
     alwaysHide(_G["MiniMapMailIcon"])
 
     -- create an alternative icon
-    -- FIXME: Provie an actual texture!
+    -- TODO: We're reusing the tracking icon for mailboxes. This might be
+    --       problematic, because we can have essentially some obfuscation. We
+    --       flip the icon, to make them distinguishable. But this may need
+    --       another look.
     frame.newIcon = frame:CreateTexture(nil, "ARTWORK")
     frame.newIcon:SetAllPoints()
-    frame.newIcon:SetColorTexture(0, 1, 0, 1)
+    frame.newIcon:SetTexture("Interface\\MINIMAP\\TRACKING\\Mailbox")
+    frame.newIcon:SetTexCoord(1, 0, 0, 1)
+    -- frame.newIcon:SetColorTexture(0, 1, 0, 1)
 
     -- TODO: Make the position configurable
     frame:ClearAllPoints()
@@ -161,6 +166,16 @@ local modifyTrackerIcon = function(frame)
     -- TODO: Make the position configurable
     frame:ClearAllPoints()
     frame:SetPoint("TOPLEFT", core.minimap, "TOPLEFT", -4, 4)
+end
+
+
+local modifyLfgIcon = function(frame)
+    frame:SetParent(core.minimap)
+
+    alwaysHide(_G["LFGMinimapFrameBorder"])
+
+    frame:ClearAllPoints()
+    frame:SetPoint("TOPRIGHT", core.minimap, "TOPRIGHT", -4, 4)
 end
 
 
@@ -193,6 +208,7 @@ core.setupMinimap = function()
     core.minimap = _G["Minimap"]
     core.mailIcon = _G["MiniMapMailFrame"]
     core.trackerIcon = _G["MiniMapTracking"]
+    core.lfgIcon = _G["LFGMinimapFrame"]
 
     -- save the maximum zoom level for later usage
     -- Ref: https://warcraft.wiki.gg/wiki/API_Minimap_GetZoomLevels
@@ -214,6 +230,9 @@ core.setupMinimap = function()
     modifyTrackerIcon(core.trackerIcon)
 
     -- LFG status Icon
+    if core.lfgIcon then
+        modifyLfgIcon(core.lfgIcon)
+    end
 
     -- Battlefield
     -- TODO: process this! Thing is, I want to provide the LFG queue thingy in
