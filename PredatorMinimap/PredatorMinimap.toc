@@ -5,7 +5,9 @@
 ## Author: Mischback
 ## Version: v0.0.1
 ## DefaultState: disabled
+## SavedVariablesPerCharacter: PredatorMinimapSettings
 
 settings.lua
 core.lua
+config.lua
 init.lua

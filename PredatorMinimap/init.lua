@@ -8,6 +8,7 @@ local ADDON_NAME, ns = ...
 -- Grab other modules of *this* addon
 local settings = ns.settings
 local core = ns.core
+local config = ns.config
 
 -- Explicit GLOBAL access to this addon
 PredatorMinimap = {}
@@ -20,11 +21,20 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     if event == "ADDON_LOADED" then
         if addon ~= ADDON_NAME then return end
 
+        if PredatorMinimapSettings == nil then
+            core.debugging("Creating default settings...")
+            PredatorMinimapSettings = settings.createDefaults()
+        end
+
         -- get a reference
         core.minimap = _G["Minimap"]
 
         -- STYLING
         PredatorMinimap.applyStyle = core.applyStyle
+
+        -- setup the slash-commands
+        SLASH_PREDATORMINIMAP1, SLASH_PREDATORMINIMAP2 = "/predatorminimap", "/predatormap"
+        SlashCmdList["PREDATORMINIMAP"] = config.SlashCmdHandler
 
         -- at this point everything should be done!
         core.debugging("loaded successfully!")

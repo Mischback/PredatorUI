@@ -22,12 +22,24 @@ settings.static = {
     },
 }
 
--- TODO: The following settings should be made into SavedVariables!
-settings.user = {
-    ["defaultZoomLevel"] = 0,
-    ["autoResetZoom"] = true,
-    ["resetZoomDelay"] = 3,
-}
+
+--[[ Create the addon's default Saved Variables
+
+  TABLE createDefaults()
+]]
+settings.createDefaults = function()
+    return {
+        ["defaultZoomLevel"] = 0,
+        ["autoResetZoom"] = true,
+        ["resetZoomDelay"] = 3,
+        ["size"] = 140,
+        ["position"] = {
+            "TOPRIGHT",
+            -5,
+            -5
+        }
+    }
+end
 
 
 ns.settings = settings

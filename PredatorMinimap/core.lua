@@ -94,7 +94,7 @@ end
   VOID setDefaultZoom()
 ]]
 local setDefaultZoom = function()
-    core.minimap:SetZoom(settings.user["defaultZoomLevel"])
+    core.minimap:SetZoom(PredatorMinimapSettings["defaultZoomLevel"])
 end
 
 
@@ -115,7 +115,7 @@ end
   timer is called/triggered when the mouse pointer leaves the frame.
 ]]
 local autoResetZoom = function()
-    C_Timer.After(settings.user["resetZoomDelay"], setDefaultZoom)
+    C_Timer.After(PredatorMinimapSettings["resetZoomDelay"], setDefaultZoom)
 end
 
 
@@ -244,15 +244,19 @@ core.setupMinimap = function()
     core.minimap:SetScript("OnMouseWheel", handlerZoom)
 
     -- auto reset zoom
-    if settings.user["autoResetZoom"] then
+    if PredatorMinimapSettings["autoResetZoom"] then
         core.resetZoom = autoResetZoom
     end
 
-    -- TODO: Provide config mode, which allows size adjustment!
-    -- FIXME: Just using SetSize() somehow applies scaling?!
-    -- core.minimap:SetSize(200, 200)
-    -- print(core.minimap:GetEffectiveScale())
-    -- print(core.minimap:GetHeight())
+
+    -- Apply position and sizefrom SavedVariables
+    core.minimap:SetSize(PredatorMinimapSettings.size, PredatorMinimapSettings.size)
+    core.minimap:SetPoint(
+        PredatorMinimapSettings["position"][1],
+        UIParent,
+        PredatorMinimapSettings["position"][2],
+        PredatorMinimapSettings["position"][3]
+    )
 end
 
 
