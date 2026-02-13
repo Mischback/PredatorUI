@@ -9,6 +9,9 @@ local ADDON_NAME, ns = ...
 local settings = ns.settings
 local core = ns.core
 
+-- Explicit GLOBAL access to this addon
+PredatorMinimap = {}
+
 
 local ctrl = CreateFrame("FRAME", nil, UIParent)
 ctrl:RegisterEvent("ADDON_LOADED")
@@ -17,7 +20,11 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     if event == "ADDON_LOADED" then
         if addon ~= ADDON_NAME then return end
 
-        -- core.setupMinimap()
+        -- get a reference
+        core.minimap = _G["Minimap"]
+
+        -- STYLING
+        PredatorMinimap.applyStyle = core.applyStyle
 
         -- at this point everything should be done!
         core.debugging("loaded successfully!")

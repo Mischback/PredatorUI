@@ -206,7 +206,6 @@ core.resetZoom = core.noop
 ]]
 core.setupMinimap = function()
     -- get a reference
-    core.minimap = _G["Minimap"]
     core.mailIcon = _G["MiniMapMailFrame"]
     core.trackerIcon = _G["MiniMapTracking"]
     core.lfgIcon = _G["LFGMinimapFrame"]
@@ -254,6 +253,18 @@ core.setupMinimap = function()
     -- core.minimap:SetSize(200, 200)
     -- print(core.minimap:GetEffectiveScale())
     -- print(core.minimap:GetHeight())
+end
+
+
+--[[ Apply an external style function to the Minimap
+
+  VOID applyStyle()
+  :param: func FUNCTION - The function to call on the Minimap
+]]
+core.applyStyle = function(func)
+    if not func then return end
+
+    func(core.minimap)
 end
 
 
