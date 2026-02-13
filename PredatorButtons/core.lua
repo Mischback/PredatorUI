@@ -61,6 +61,22 @@ end
 ]]
 local scaleButton = function(btn, sizeX, sizeY)
     core.buttonFuncProxy[btn:GetName().."SetSize"](btn, sizeX, sizeY)
+
+    btn.icon:ClearAllPoints()
+    btn.icon:SetAllPoints(btn)
+    btn.Flash:ClearAllPoints()
+    btn.Flash:SetAllPoints(btn)
+    btn.cooldown:ClearAllPoints()
+    btn.cooldown:SetAllPoints(btn)
+
+    btn.NormalTexture:ClearAllPoints()
+    btn.NormalTexture:SetAllPoints(btn)
+    btn.PushedTexture:ClearAllPoints()
+    btn.PushedTexture:SetAllPoints(btn)
+    btn.HighlightTexture:ClearAllPoints()
+    btn.HighlightTexture:ClearAllPoints()
+    btn.CheckedTexture:SetAllPoints(btn)
+    btn.CheckedTexture:SetAllPoints(btn)
 end
 
 
