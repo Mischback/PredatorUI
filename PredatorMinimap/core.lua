@@ -251,6 +251,7 @@ core.setupMinimap = function()
 
     -- Apply position and sizefrom SavedVariables
     core.minimap:SetSize(PredatorMinimapSettings.size, PredatorMinimapSettings.size)
+    core.minimap:ClearAllPoints()
     core.minimap:SetPoint(
         PredatorMinimapSettings["position"][1],
         UIParent,
