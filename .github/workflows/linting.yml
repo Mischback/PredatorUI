@@ -2,11 +2,9 @@ name: Lint
 
 on:
   push:
-    paths:
-      - '**.lua'
+    branches: [development]
   pull_request:
-    paths:
-      - '**.lua'
+    branches: [development]
 
 jobs:
   lint:
