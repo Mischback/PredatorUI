@@ -42,7 +42,7 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     ab1:RegisterEvent("BAG_UPDATE")
     ab1:SetScript("OnEvent", function(self, event, ...)
         if event == "PLAYER_LOGIN" then
-            local i, btn, list
+            local btn
             for i = 1, settings.static.NumButtons["ActionBar"] do
                 btn = _G[settings.static.ButtonPrefix["ActionBar"]..i]
                 btn:SetParent(self)
