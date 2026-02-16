@@ -37,6 +37,7 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
         SlashCmdList["PREDATORMINIMAP"] = config.SlashCmdHandler
 
         -- at this point everything should be done!
+        self:UnregisterEvent("ADDON_LOADED")
         core.debugging("loaded successfully!")
         return
     end
