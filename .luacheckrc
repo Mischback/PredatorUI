@@ -13,4 +13,9 @@ globals = {
 
 read_globals = {
     -- Blizzard UI functions
+    UIParent,
+
+    -- Functions
+    CreateFrame,
+    IsShiftKeyDown,
 }

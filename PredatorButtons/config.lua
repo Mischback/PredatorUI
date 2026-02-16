@@ -15,12 +15,17 @@
 ]]
 
 -- Provide addon-specific environment, don't work on global namespace
-local ADDON_NAME, ns = ...
+local _, ns = ...
 
 
 -- ==============
 -- LOCALIZE STUFF
 -- ==============
+
+local ceil = math.ceil
+local min = math.min
+
+
 -- Grab other modules of *this* addon
 local settings = ns.settings
 local core = ns.core
@@ -352,9 +357,6 @@ end
   The configuration frames are created "on demand".
 ]]
 config.SlashCmdHandler = function(msg)
-    local cmd, param = msg:match('^(%S*)%s*(.-)$')
-    if cmd ~= "config" then return end
-
     local check = configFrames["ActionBar"]
 
     if check == nil then
