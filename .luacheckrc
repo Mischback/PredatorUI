@@ -3,6 +3,7 @@ std = "lua51"
 quiet = 1  -- suppress output for clean files
 
 ignore = {
+    "212/msg",  -- unused argument ``msg``
     "631",  -- line is too long
 }
 
@@ -18,6 +19,7 @@ globals = {
 read_globals = {
     -- Blizzard UI functions
     "UIParent",
+    "DEFAULT_CHAT_FRAME",
 
     -- Functions
     "CreateFrame",

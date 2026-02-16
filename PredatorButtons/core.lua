@@ -18,6 +18,12 @@ local _, ns = ...
 -- ==============
 -- LOCALIZE STUFF
 -- ==============
+
+local ceil = math.ceil
+local floor = math.floor
+local min = math.min
+
+
 -- Grab other modules of *this* addon
 local settings = ns.settings
 
@@ -29,7 +35,7 @@ local core = {}
 core.buttonFuncProxy = {}
 
 
---[[ Store references to some button functions locally and remove them from 
+--[[ Store references to some button functions locally and remove them from
      the buttons.
 
   VOID proxifyButton()
@@ -101,7 +107,7 @@ end
                           the current button.
 ]]
 local applyStyleToBar = function(key, func)
-    local i, btn
+    local btn
     for i = 1, PredatorButtonsSettings[key].buttons do
         btn = _G[settings.static.ButtonPrefix[key]..i]
         func(btn)
@@ -124,7 +130,7 @@ end
   :param: parent FRAME - The new frame to attach the buttons to
 ]]
 core.processBarButtons = function(key, parent)
-    local i, btn
+    local btn
     local sizeX = PredatorButtonsSettings[key].sizeX
     local sizeY = PredatorButtonsSettings[key].sizeY
     for i = 1, settings.static.NumButtons[key] do
@@ -184,7 +190,6 @@ end
                           bars for all (visible) buttons.
 ]]
 core.applyStyle = function(func)
-    local key, _
     for key, _ in pairs(settings.static.BarName) do
         applyStyleToBar(key, func)
     end
@@ -194,7 +199,7 @@ end
 --[[
 ]]
 core.hideBlizzardActionBarArt = function()
-    local f, v
+    local f
     for _, v in pairs(settings.static.BlizzardDefaultFrames) do
         f = _G[v]
         f:SetAlpha(0)
