@@ -7,6 +7,7 @@ ignore = {
     "212/self",  -- unused argument ``self``
     "212/event",  -- unused argument ``event``
     "431",  -- shadowing an upvalue
+    "432",  -- shadowing an upvalue argument
     "631",  -- line is too long
 }
 
@@ -33,6 +34,8 @@ read_globals = {
     -- Blizzard UI functions
     "UIParent",
     "DEFAULT_CHAT_FRAME",
+    "NUM_ACTIONBAR_BUTTONS",
+    "NUM_MULTIBAR_BUTTONS",
     "MainMenuBar_OnEvent",
 
     -- Functions
