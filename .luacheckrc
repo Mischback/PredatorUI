@@ -17,6 +17,7 @@ exclude_files = {}
 globals = {
     -- our addons' global namespaces
     "PredatorButtons",
+    "PredatorMinimap",
 
     -- Our addons' SavedVariables
     "PredatorButtonsSettings",
@@ -25,6 +26,8 @@ globals = {
     -- Slash Commands
     "SLASH_PREDATORBUTTONS1",
     "SLASH_PREDATORBUTTONS2",
+    "SLASH_PREDATORMINIMAP1",
+    "SLASH_PREDATORMINIMAP2",
 
     -- Blizzard stuff we mess with
     "SlashCmdList",
@@ -43,4 +46,7 @@ read_globals = {
     "IsShiftKeyDown",
     "RegisterStateDriver",
     "UnitClass",
+
+    -- Libraries
+    "C_Timer",
 }

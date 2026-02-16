@@ -76,7 +76,7 @@ end
     :param: delta INT - Provides the scroll offset/direction
 ]]
 local handlerZoom = function(mm, delta)
-    curZoom = mm:GetZoom()
+    local curZoom = mm:GetZoom()
 
     if delta > 0 and curZoom < settings.static.blizzard["maxZoomLevel"] then
         mm:SetZoom(curZoom + 1)
