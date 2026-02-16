@@ -2,6 +2,10 @@ std = "lua51"
 
 quiet = 1  -- suppress output for clean files
 
+ignore = {
+    "631",  -- line is too long
+}
+
 -- keep this empty!
 exclude_files = {}
 
@@ -13,9 +17,9 @@ globals = {
 
 read_globals = {
     -- Blizzard UI functions
-    UIParent,
+    "UIParent",
 
     -- Functions
-    CreateFrame,
-    IsShiftKeyDown,
+    "CreateFrame",
+    "IsShiftKeyDown",
 }
