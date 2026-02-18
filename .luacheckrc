@@ -23,6 +23,7 @@ globals = {
     -- Our addons' SavedVariables
     "PredatorButtonsSettings",
     "PredatorMinimapSettings",
+    "PredatorUnitFramesSettings",
 
     -- Slash Commands
     "SLASH_PREDATORBUTTONS1",
