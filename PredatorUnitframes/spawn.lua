@@ -6,7 +6,7 @@
 local ADDON_NAME, ns = ...
 
 -- Grab other modules of *this* addon
-local settings = ns.settings  -- Luacheck: ignore
+local settings = ns.settings  -- Luacheck: ignore unused
 local frames = ns.frames
 
 -- Get a reference to oUF
