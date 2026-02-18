@@ -5,7 +5,7 @@
 local _, ns = ...
 
 -- Grab other modules of *this* addon
-local settings = ns.settings  -- Luacheck: ignore unused
+local settings = ns.settings
 local util = ns.util
 local callbacks = ns.callbacks
 local elements = ns.elements

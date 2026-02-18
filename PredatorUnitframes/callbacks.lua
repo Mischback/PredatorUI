@@ -21,7 +21,7 @@ local ToggleDropDownMenu = ToggleDropDownMenu
 
 -- Grab other modules of *this* addon
 local settings = ns.settings
-local util = ns.util  -- Luacheck: ignore unused
+local util = ns.util
 
 local cb = {}
 

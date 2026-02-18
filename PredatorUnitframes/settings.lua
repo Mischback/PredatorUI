@@ -77,5 +77,30 @@ settings.fonts = {
     ["details"] = LSM:Fetch(FONT, "MonaSans SemiCond SemiBold", false)
 }
 
+
+settings.createDefaults = function()
+    local config = {
+        ["player"] = {
+            ["position"] = {"RIGHT", UIParent, "CENTER", -75, -250},
+        },
+        ["playerCastbar"] = {
+            ["useThis"] = true,
+            ["mode"] = "simple",
+            ["position"] = {"CENTER", UIParent, "CENTER", 0, -150},
+        },
+        ["target"] = {
+            ["position"] = {"LEFT", UIParent, "CENTER", 75, -250},
+        },
+        ["targettarget"] = {
+            ["position"] = {"LEFT", "PredatorUF_target", "RIGHT", 20, 0},
+        },
+        ["focus"] = {
+            ["position"] = {"BOTTOMLEFT", "PredatorUF_targettarget", "TOPLEFT", 0, 100},
+        },
+    }
+
+    return config
+end
+
 -- Attach to the addon's namespace
 ns.settings = settings
