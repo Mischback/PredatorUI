@@ -129,6 +129,29 @@ frames.createTargetTarget = function(self)
 end
 
 
+--[[ PET
+
+  The target's target unitframe follows the general look'n'feel of the layout,
+  but is slightly adjusted to match the *player* and *target* frames.
+]]
+frames.createPet = function(self)
+    elements.createBaseFrame(self, 80, 36, 18, 18)
+
+    -- align Health-value with player/target frame
+    self.Health.value:SetJustifyH("CENTER")
+    self.Health.value:ClearAllPoints()
+    self.Health.value:SetPoint("CENTER", self.Health, "CENTER", 0, -3)
+    self.Health.PostUpdate = callbacks.updateHealth_percent
+
+    -- move the Name to the top (centered)
+    self.Name:SetParent(self.eyecandy)
+    self.Name:SetJustifyH("CENTER")
+    self.Name:ClearAllPoints()
+    self.Name:SetPoint("TOP", self, "TOP", 0, 7)
+    -- FIXME: Provide dedicated Name shortening function!
+end
+
+
 --[[ FOCUS
 
   Very basic setup, but with some slight adjustments, e.g. a castbar.

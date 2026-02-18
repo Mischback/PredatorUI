@@ -32,12 +32,16 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     oUF:RegisterStyle("PredatorUF_player", frames.createPlayer)
     oUF:RegisterStyle("PredatorUF_target", frames.createTarget)
     oUF:RegisterStyle("PredatorUF_targettarget", frames.createTargetTarget)
+    oUF:RegisterStyle("PredatorUF_pet", frames.createPet)
     oUF:RegisterStyle("PredatorUF_focus", frames.createFocus)
     oUF:RegisterStyle("PredatorUF_party", frames.createPartyMember)
     oUF:RegisterStyle("PredatorUF_playercastbar_simple", frames.createPlayerCastbarSimple)
 
     oUF:SetActiveStyle("PredatorUF_player")
     oUF:Spawn("player", "PredatorUF_player"):SetPoint(unpack(PredatorUnitFramesSettings.player.position))
+
+    oUF:SetActiveStyle("PredatorUF_pet")
+    oUF:Spawn("pet", "PredatorUF_pet"):SetPoint(unpack(PredatorUnitFramesSettings.pet.position))
 
     oUF:SetActiveStyle("PredatorUF_target")
     oUF:Spawn("target", "PredatorUF_target"):SetPoint(unpack(PredatorUnitFramesSettings.target.position))

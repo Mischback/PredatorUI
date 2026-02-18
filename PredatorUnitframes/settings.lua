@@ -83,6 +83,9 @@ settings.createDefaults = function()
         ["player"] = {
             ["position"] = {"RIGHT", UIParent, "CENTER", -75, -250},
         },
+        ["pet"] = {
+            ["position"] = {"RIGHT", "PredatorUF_player", "LEFT", -20, 0},
+        },
         ["playerCastbar"] = {
             ["useThis"] = true,
             ["mode"] = "simple",
