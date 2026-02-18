@@ -8,6 +8,17 @@
 -- Provide addon-specific environment, don't work on global namespace
 local _, ns = ...
 
+-- Localize Blizzard API functions
+--
+-- The callbacks inside of this module may be executed several times on several
+-- different unitframes. Localizing may provide slightly better performance.
+local C_UnitAuras = C_UnitAuras
+local UnitIsConnected = UnitIsConnected
+local UnitIsDead = UnitIsDead
+local UnitIsFeignDeath = UnitIsFeignDeath
+local UnitName = UnitName
+local ToggleDropDownMenu = ToggleDropDownMenu
+
 -- Grab other modules of *this* addon
 local settings = ns.settings
 local util = ns.util
@@ -139,7 +150,7 @@ cb.updateHealth_target = function(health, unit, min, max)
     local statusString = getStatusString(unit)
     if statusString then
         health.value:SetFormattedText("|cff%s%s|r", settings.colors.hpValue, statusString)
-        health:GetParent():UNIT_NAME_UPDATE(event, unit)
+        health:GetParent():UNIT_NAME_UPDATE(nil, unit)
         return
     end
 
@@ -155,7 +166,7 @@ cb.updateHealth_target = function(health, unit, min, max)
         health.value:SetFormattedText("|cff%s%s|r", settings.colors.hpValue, min)
     end
 
-    health:GetParent():UNIT_NAME_UPDATE(event, unit)
+    health:GetParent():UNIT_NAME_UPDATE(nil, unit)
 end
 
 

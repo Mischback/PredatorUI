@@ -46,7 +46,15 @@ read_globals = {
     "IsShiftKeyDown",
     "RegisterStateDriver",
     "UnitClass",
+    "UnitIsConnected",
+    "UnitIsDead",
+    "UnitIsFeignDeath",
+    "UnitName",
+    "ToggleDropDownMenu",
+    "UnitFrame_OnEnter",
+    "UnitFrame_OnLeave",
 
     -- Libraries
     "C_Timer",
+    "C_UnitAuras",
 }

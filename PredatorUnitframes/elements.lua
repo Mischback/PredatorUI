@@ -1,5 +1,4 @@
 --[[
-  
 ]]
 
 -- Provide addon-specific environment, don't work on global namespace
