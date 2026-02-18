@@ -1,3 +1,11 @@
+PredatorUnitFrames/embed/**/*
+!PredatorUnitFrames/embed/.gitkeep
+
+# The following stuff is Github's default .gitignore for Lua projects.
+# Most of that stuff is completely irrelevant for WoW addons, I just keep
+# them for good measure, if some Lua tool (linter, ...) create those temporary
+# files in any case.
+
 # Compiled Lua sources
 luac.out
 

@@ -1,0 +1,22 @@
+# Specific TOC file for TBC, which is the only working version.
+# Please note, this layout requires a dedicated hacked oUF-core (oUF4TBC)
+## Interface: 20505
+## Category: Unit Frames
+## Title: |cff79c947Predator|rUnitFrames
+## Notes: Personal layout; requires a dedicated hacked oUF-core (oUF4TBC)
+## Author: Mischback
+## Version: v0.0.1
+## RequiredDeps: Predator_SharedMedia
+## X-oUF: Predator_oUF
+## DefaultState: Disabled
+
+embed\LibDispel\LibDispel.lua
+embed\oUF\oUF_TBC.xml
+
+settings.lua
+util.lua
+callbacks.lua
+elements.lua
+frames.lua
+
+spawn.lua
