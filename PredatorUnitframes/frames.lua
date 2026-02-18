@@ -14,7 +14,7 @@ local frames = {}
 
 
 frames.createPlayer = function(self)
-    elements.createBaseFrame(self, 192, 48, 24, 18)
+    elements.createBaseFrame(self, 168, 36, 18, 14)
 
     -- move Health-value to the right
     self.Health.value:SetJustifyH("RIGHT")
@@ -60,7 +60,7 @@ end
   - TODO: Insert stuff here
 ]]
 frames.createTarget = function(self)
-    elements.createBaseFrame(self, 192, 48, 24, 18)
+    elements.createBaseFrame(self, 168, 36, 18, 18)
 
     -- move Health-value to the left
     self.Health.value:SetJustifyH("LEFT")
@@ -78,15 +78,15 @@ frames.createTarget = function(self)
     self.Name:SetParent(self.eyecandy)
     self.Name:SetJustifyH("RIGHT")
     self.Name:ClearAllPoints()
-    self.Name:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 8)
+    self.Name:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 7)
     -- FIXME: Provide dedicated Name shortening function!
 
     self.Buffs = CreateFrame("FRAME", self:GetName().."Buffs", self)
     self.Buffs:SetHeight(24)
     self.Buffs:SetWidth(self:GetWidth())
     self.Buffs.size = 24
-    self.Buffs.spacing = 8
-    self.Buffs.num = 8
+    self.Buffs.spacing = 5
+    self.Buffs.num = 6
     self.Buffs.PostCreateButton = elements.styleAura
     self.Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -16)
 
@@ -94,8 +94,8 @@ frames.createTarget = function(self)
     self.Debuffs:SetHeight(24)
     self.Debuffs:SetWidth(self:GetWidth())
     self.Debuffs.size = 24
-    self.Debuffs.spacing = 8
-    self.Debuffs.num = 8
+    self.Debuffs.spacing = 5
+    self.Debuffs.num = 6
     self.Debuffs.PostCreateButton = elements.styleAura
     self.Debuffs:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 12)
 
@@ -112,7 +112,7 @@ end
   but is slightly adjusted to match the *player* and *target* frames.
 ]]
 frames.createTargetTarget = function(self)
-    elements.createBaseFrame(self, 96, 48, 24, 18)
+    elements.createBaseFrame(self, 80, 36, 18, 18)
 
     -- align Health-value with player/target frame
     self.Health.value:SetJustifyH("CENTER")
@@ -124,7 +124,7 @@ frames.createTargetTarget = function(self)
     self.Name:SetParent(self.eyecandy)
     self.Name:SetJustifyH("CENTER")
     self.Name:ClearAllPoints()
-    self.Name:SetPoint("TOP", self, "TOP", 0, 8)
+    self.Name:SetPoint("TOP", self, "TOP", 0, 7)
     -- FIXME: Provide dedicated Name shortening function!
 end
 
@@ -134,7 +134,7 @@ end
   Very basic setup, but with some slight adjustments, e.g. a castbar.
 ]]
 frames.createFocus = function(self)
-    elements.createBaseFrame(self, 96, 32, 18, 18)
+    elements.createBaseFrame(self, 80, 32, 18, 18)
 
     -- FIXME: Provide dedicated Name shortening function!
 
@@ -154,7 +154,7 @@ end
   TODO: Does this require some buff visualization?
 ]]
 frames.createPartyMember = function(self)
-    elements.createBaseFrame(self, 96, 32, 18, 18)
+    elements.createBaseFrame(self, 72, 28, 14, 14)
 
     -- FIXME: Provide dedicated Name shortening function!
 end

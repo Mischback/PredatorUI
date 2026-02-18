@@ -63,9 +63,9 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     -- FIXME: Just for development!
     oUF:SetActiveStyle("PredatorUF_party")
     oUF:Spawn("focus", "PredatorUF_partytest1"):SetPoint("BOTTOMRIGHT", "PredatorUF_player", "TOPLEFT", 0, 100)
-    oUF:Spawn("focus", "PredatorUF_partytest2"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest1", "TOPLEFT", 0, 15)
-    oUF:Spawn("focus", "PredatorUF_partytest3"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest2", "TOPLEFT", 0, 15)
-    oUF:Spawn("focus", "PredatorUF_partytest4"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest3", "TOPLEFT", 0, 15)
+    oUF:Spawn("focus", "PredatorUF_partytest2"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest1", "TOPLEFT", 0, 10)
+    oUF:Spawn("focus", "PredatorUF_partytest3"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest2", "TOPLEFT", 0, 10)
+    oUF:Spawn("focus", "PredatorUF_partytest4"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest3", "TOPLEFT", 0, 10)
 
     self:UnregisterEvent("ADDON_LOADED")
     debugging("loaded successfully!")
