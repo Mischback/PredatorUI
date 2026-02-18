@@ -6,6 +6,7 @@ ignore = {
     "212/msg",  -- unused argument ``msg``
     "212/self",  -- unused argument ``self``
     "212/event",  -- unused argument ``event``
+    "212/frame",  -- unused argument ``frame``
     "431",  -- shadowing an upvalue
     "432",  -- shadowing an upvalue argument
     "631",  -- line is too long
@@ -34,6 +35,9 @@ globals = {
 }
 
 read_globals = {
+    -- stuff from other addons
+    "LibStub",
+
     -- Blizzard UI functions
     "UIParent",
     "DEFAULT_CHAT_FRAME",

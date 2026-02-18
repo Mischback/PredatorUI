@@ -21,7 +21,7 @@ local ToggleDropDownMenu = ToggleDropDownMenu
 
 -- Grab other modules of *this* addon
 local settings = ns.settings
-local util = ns.util
+local util = ns.util  -- Luacheck: ignore (will be used later!)
 
 local cb = {}
 
@@ -84,7 +84,7 @@ cb.updateHealth_percent = function(health, unit, min, max)
     local statusString = getStatusString(unit)
     if statusString then
         health.value:SetFormattedText("|cff%s%s|r", settings.colors.hpValue, statusString)
-        health:GetParent():UNIT_NAME_UPDATE(event, unit)
+        health:GetParent():UNIT_NAME_UPDATE(nil, unit)
         return
     end
 
@@ -94,7 +94,7 @@ cb.updateHealth_percent = function(health, unit, min, max)
         health.value:SetFormattedText("|cff%s%s|r", settings.colors.hpValue, min)
     end
 
-    health:GetParent():UNIT_NAME_UPDATE(event, unit)
+    health:GetParent():UNIT_NAME_UPDATE(nil, unit)
 end
 
 

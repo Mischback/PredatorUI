@@ -1,12 +1,11 @@
 --[[
-  
 ]]
 
 -- Provide addon-specific environment, don't work on global namespace
 local _, ns = ...
 
 -- Grab other modules of *this* addon
-local settings = ns.settings
+local settings = ns.settings  -- Luacheck: ignore
 local util = ns.util
 local callbacks = ns.callbacks
 local elements = ns.elements

@@ -64,7 +64,6 @@ util.applyBorder = function(frame, size)
     end
 
     local tex = {}
-    local i
 
     for i = 1, 8 do
         tex[i] = frame:CreateTexture(nil, "OVERLAY")
