@@ -78,8 +78,7 @@ frames.createTarget = function(self)
     self.Name:SetParent(self.eyecandy)
     self.Name:SetJustifyH("RIGHT")
     self.Name:ClearAllPoints()
-    self.Name:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 7)
-    -- FIXME: Provide dedicated Name shortening function!
+    self.Name:SetPoint("TOPRIGHT", self, "TOPRIGHT", 0, 8)
 
     self.Buffs = CreateFrame("FRAME", self:GetName().."Buffs", self)
     self.Buffs:SetHeight(24)
@@ -103,6 +102,8 @@ frames.createTarget = function(self)
     self.Castbar = elements.createCastbar(self)
     self.Castbar.Icon:SetPoint("LEFT", self.Castbar, "LEFT", 5, 0)
     self.Castbar.Text:SetPoint("LEFT", self.Castbar.Icon, "RIGHT", 3, -1)
+
+    self.UNIT_NAME_UPDATE = callbacks.updateNameTarget
 end
 
 
@@ -124,8 +125,7 @@ frames.createTargetTarget = function(self)
     self.Name:SetParent(self.eyecandy)
     self.Name:SetJustifyH("CENTER")
     self.Name:ClearAllPoints()
-    self.Name:SetPoint("TOP", self, "TOP", 0, 7)
-    -- FIXME: Provide dedicated Name shortening function!
+    self.Name:SetPoint("TOP", self, "TOP", 0, 8)
 end
 
 
@@ -148,7 +148,6 @@ frames.createPet = function(self)
     self.Name:SetJustifyH("CENTER")
     self.Name:ClearAllPoints()
     self.Name:SetPoint("TOP", self, "TOP", 0, 7)
-    -- FIXME: Provide dedicated Name shortening function!
 end
 
 
@@ -158,8 +157,6 @@ end
 ]]
 frames.createFocus = function(self)
     elements.createBaseFrame(self, 80, 32, 18, 18)
-
-    -- FIXME: Provide dedicated Name shortening function!
 
     -- provide a castbar
     self.Castbar = elements.createCastbar(self)
@@ -178,8 +175,6 @@ end
 ]]
 frames.createPartyMember = function(self)
     elements.createBaseFrame(self, 72, 28, 14, 14)
-
-    -- FIXME: Provide dedicated Name shortening function!
 end
 
 

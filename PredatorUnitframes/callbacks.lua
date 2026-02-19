@@ -18,6 +18,7 @@ local UnitIsDead = UnitIsDead
 local UnitIsFeignDeath = UnitIsFeignDeath
 local UnitName = UnitName
 local ToggleDropDownMenu = ToggleDropDownMenu
+local format = string.format
 
 -- Grab other modules of *this* addon
 local settings = ns.settings
@@ -62,6 +63,34 @@ cb.updateName = function(self, event)
     local name = UnitName(self.unit)
     if name then
         self.Name:SetFormattedText("|cff%s%s|r", settings.colors["name"], name)
+    end
+end
+
+
+local assessTargetLevel = function(level)
+    if level < 0 then
+        return format("|cff%s%s|r", settings.colors.targetLevel["danger"], "??")
+    end
+
+    local difference = level - UnitLevel("player")
+    if difference > 4 then
+        return format("|cff%s%d|r", settings.colors.targetLevel["hard"], level)
+    elseif difference > 2 then
+        return format("|cff%s%d|r", settings.colors.targetLevel["medium"], level)
+    elseif difference > -3 then
+        return format("|cff%s%d|r", settings.colors.targetLevel["normal"], level)
+    elseif -difference < GetQuestGreenRange() then
+        return format("|cff%s%d|r", settings.colors.targetLevel["easy"], level)
+    else
+        return format("|cff%s%d|r", settings.colors.targetLevel["danger"], level)
+    end
+end
+
+
+cb.updateNameTarget = function(self, event)
+    local name = UnitName(self.unit)
+    if name then
+        self.Name:SetFormattedText("%s |cff%s%s|r", assessTargetLevel(UnitLevel(self.unit)), settings.colors["name"], name)
     end
 end
 

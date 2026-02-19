@@ -93,6 +93,8 @@ elements.createBaseFrame = function(self, width, height, hpFontSize, nameFontSiz
     self.Health.value:SetJustifyH("CENTER")
 
     self.Name = util.createFontObject(self.Health, nameFontSize, settings.fonts["hp"])
+    self.Name:SetWidth(width - 2)
+    self.Name:SetWordWrap(false)
     self.Name:SetPoint("CENTER", self.Health, "CENTER", 1, 1)
     self.Name:SetJustifyH("CENTER")
 

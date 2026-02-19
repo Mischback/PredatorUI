@@ -55,6 +55,13 @@ settings.colors = {
     ["hpDeficit"] = "CC2222",
     ["name"] = "DDDDDD",
     ["glossIntensity"] = 0.7,
+    ["targetLevel"] = {
+        ["danger"] = "FF0000",
+        ["hard"] = "FFAE00",
+        ["medium"] = "FFD145",
+        ["easy"] = "397A00",
+        ["normal"] = "DDDDDD",
+    },
 }
 
 -- ========
