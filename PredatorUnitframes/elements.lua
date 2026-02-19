@@ -43,7 +43,6 @@ elements.createBaseFrame = function(self, width, height, hpFontSize, nameFontSiz
 
     self.Health = hp
 
-    -- FIXME: Heal prediction is NOT working!
     local mhpb = CreateFrame("StatusBar", nil, self)
     mhpb:SetFrameLevel(FRAMELEVEL.health + 1)
     mhpb:SetPoint("TOPLEFT", hp:GetStatusBarTexture(), "TOPRIGHT")
@@ -62,10 +61,10 @@ elements.createBaseFrame = function(self, width, height, hpFontSize, nameFontSiz
     ohpb:SetStatusBarColor(unpack(settings.colors.hpHeal))
     ohpb:Hide()
 
-    self.HealPrediction = {
-        ["myBar"] = mhpb,
-        ["otherBar"] = ohpb,
-        ["maxOverflow"] = 1.0,
+    self.HealthPrediction = {
+        ["healingPlayer"] = mhpb,
+        ["healingOther"] = ohpb,
+        ["maxOverflow"] = 1,
     }
 
     -- POWER
