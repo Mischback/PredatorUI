@@ -113,7 +113,7 @@ elements.createBaseFrame = function(self, width, height, hpFontSize, nameFontSiz
     self:SetScript("OnEnter", UnitFrame_OnEnter)
     self:SetScript("OnLeave", UnitFrame_OnLeave)
 
-    self.Health.PostUpdate = callbacks.updateHealth_percent_visibility
+    self.Health.PostUpdate = callbacks.updateHealth_replaceName
     self.UNIT_NAME_UPDATE = callbacks.updateName
 end
 

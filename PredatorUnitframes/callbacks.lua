@@ -28,6 +28,9 @@ local cb = {}
 
 
 --[[ Determine of a unit is "dead" or "offline".
+
+  STRING | nil getStatusString()
+  :param: unit STRING
 ]]
 local getStatusString = function(unit)
     if not UnitIsConnected(unit) then
@@ -35,7 +38,6 @@ local getStatusString = function(unit)
     end
 
     if UnitIsDead(unit) and not UnitIsFeignDeath(unit) then
-    -- if UnitIsDead(unit) then
         return settings.general.STATUS_DEAD
     end
 
@@ -43,35 +45,20 @@ local getStatusString = function(unit)
 end
 
 
---[[
-    Trigger the correct UnitFrame menu. Applied as click-handler in
-    CreateBaseUnitFrame.
+--[[ Evaluate a unit's level and color the returned string accordingly.
+
+  STRING assessTargetLevel()
+  :param: level INT - The level of the unit.
 ]]
-cb.ufMenuTrigger = function(self)
-    local unit = self.unit:sub(1, -2)
-    local cunit = self.unit:gsub('(.)', string.upper, 1)
-
-    if(unit == 'party' or unit == 'partypet') then
-        ToggleDropDownMenu(1, nil, _G['PartyMemberFrame'..self.id..'DropDown'], 'cursor', 0, 0)
-    elseif(_G[cunit..'FrameDropDown']) then
-        ToggleDropDownMenu(1, nil, _G[cunit..'FrameDropDown'], 'cursor', 0, 0)
-    end
-end
-
-
-cb.updateName = function(self, event)
-    local name = UnitName(self.unit)
-    if name then
-        self.Name:SetFormattedText("|cff%s%s|r", settings.colors["name"], name)
-    end
-end
-
-
 local assessTargetLevel = function(level)
     if level < 0 then
         return format("|cff%s%s|r", settings.colors.targetLevel["danger"], "??")
     end
 
+    -- FIXME: The player's level is static/slow, so it will be far more
+    --        efficient to get the level while loading the addon and storing
+    --        it in the settings.
+    --        Even better: Register to some "level up event" to adjust this.
     local difference = level - UnitLevel("player")
     if difference > 4 then
         return format("|cff%s%d|r", settings.colors.targetLevel["hard"], level)
@@ -87,6 +74,50 @@ local assessTargetLevel = function(level)
 end
 
 
+--[[ Trigger the correct UnitFrame menu. Applied as click-handler.
+]]
+cb.ufMenuTrigger = function(self)
+    local unit = self.unit:sub(1, -2)
+    local cunit = self.unit:gsub('(.)', string.upper, 1)
+
+    if(unit == 'party' or unit == 'partypet') then
+        ToggleDropDownMenu(1, nil, _G['PartyMemberFrame'..self.id..'DropDown'], 'cursor', 0, 0)
+    elseif(_G[cunit..'FrameDropDown']) then
+        ToggleDropDownMenu(1, nil, _G[cunit..'FrameDropDown'], 'cursor', 0, 0)
+    end
+end
+
+
+--[[ Update the name of a unit.
+
+  VOID updateName()
+  :param: self TABLE - The actual unitframe, handled by oUF.
+  :param: event STRING - The function will be called with the event, but that
+                         parameter is not actually used!
+
+  The unitframes are setup to have a fixed width for the ``self.Name`` text
+  object with truncation activated. So if the actual name is too long, it will
+  get adjusted automatically.
+]]
+cb.updateName = function(self, event)
+    local name = UnitName(self.unit)
+    if name then
+        self.Name:SetFormattedText("|cff%s%s|r", settings.colors["name"], name)
+    end
+end
+
+
+--[[ Update the name of the *target* unit.
+
+  VOID updateNameTarget()
+  :param: self TABLE - The actual unitframe, handled by oUF.
+  :param: event STRING - The function will be called with the event, but that
+                         parameter is not actually used!
+
+  This is a dedicated function for the *target* unitframe, as this is the only
+  one which includes the target's level. The ``level`` part will be colored
+  by ``assessTargetLevel()`` and the corresponding settings.
+]]
 cb.updateNameTarget = function(self, event)
     local name = UnitName(self.unit)
     if name then
@@ -105,7 +136,15 @@ cb.updateNameNoop = function(self, event)
 end
 
 
-cb.updateHealth_percent = function(health, unit, min, max)
+--[[ Provide a unit's health value as percent or the max value.
+
+  VOID updateHealthPercent()
+  :param: health FRAME - The corresponding element of the unitframe
+  :param: unit STRING - The unit
+  :param: min INT - The current health value
+  :param: max INT - The maximum health value for that unit
+]]
+cb.updateHealthPercent = function(health, unit, min, max)
     if not unit then
         return
     end
@@ -127,12 +166,70 @@ cb.updateHealth_percent = function(health, unit, min, max)
 end
 
 
-cb.updateHealth_percent_visibility = function(health, unit, min, max)
+--[[ Provide a unit's health value as defcit from its max or the max value.
+
+  VOID updateHealthDeficit()
+  :param: health FRAME - The corresponding element of the unitframe
+  :param: unit STRING - The unit
+  :param: min INT - The current health value
+  :param: max INT - The maximum health value for that unit
+]]
+cb.updateHealthDeficit = function(health, unit, min, max)
     if not unit then
         return
     end
 
-    cb.updateHealth_percent(health, unit, min, max)
+    local statusString = getStatusString(unit)
+    if statusString then
+        health.value:SetFormattedText("|cff%s%s|r", settings.colors.hpValue, statusString)
+        health:GetParent():UNIT_NAME_UPDATE(nil, unit)
+        return
+    end
+
+    if ( min ~= max ) then
+        health.value:SetFormattedText("|cff%s-%s|r", settings.colors.hpDeficit, (max-min))
+    else
+        health.value:SetFormattedText("|cff%s%s|r", settings.colors.hpValue, min)
+    end
+
+    health:GetParent():UNIT_NAME_UPDATE(nil, unit)
+end
+
+
+--[[ How to update a unit's health value.
+
+  This acts like a *pointer* to an actual function (e.g.
+  ``updateHealthPercent()`` / ``updateHealthDeficit()``. It is used inside of
+  ``updateHealth_replaceName()``, which is the default function for most
+  unitframes.
+
+  The idea is, to switch between different *actual* implementations, depending
+  on the player's role, implementing a *healer mode*.
+]]
+cb.updateHealth = cb.updateHealthPercent
+
+
+--[[ Update the unit's health and show/hide it in combination with the name.
+
+  VOID updateHealth()
+  :param: health FRAME - The corresponding element of the unitframe
+  :param: unit STRING - The unit
+  :param: min INT - The current health value
+  :param: max INT - The maximum health value for that unit
+
+  Most unitframes show **either** the unit's name or its health value. This
+  function takes care of switching those by hiding/showing the desired text
+  object (``self.Name`` or ``self.Health.value``).
+
+  **HOW** the health is presented, is dependent on ``cb.updateHealth``, which
+  can point to ``updateHealthPercent()`` or ``updateHealthDeficit()``.
+]]
+cb.updateHealth_replaceName = function(health, unit, min, max)
+    if not unit then
+        return
+    end
+
+    cb.updateHealth(health, unit, min, max)
 
     local name = health:GetParent().Name
     if min ~= max then
@@ -145,6 +242,19 @@ cb.updateHealth_percent_visibility = function(health, unit, min, max)
 end
 
 
+--[[ Update the health on the player's frame.
+
+  VOID updateHealth_player()
+  :param: health FRAME - The corresponding element of the unitframe
+  :param: unit STRING - The unit
+  :param: min INT - The current health value
+  :param: max INT - The maximum health value for that unit
+
+  The player's frame requires a health string in the format ``current|percent``
+  and should provide support for hunter's *Feign Death* ability. This function
+  does not trigger a name update (because the player's unitframe doesn't show
+  a name).
+]]
 cb.updateHealth_player = function(health, unit, min, max)
     if not unit then
         return
@@ -159,6 +269,7 @@ cb.updateHealth_player = function(health, unit, min, max)
 
     if max == 0 then
         health.value:SetFormattedText("|cff%s%s|r", settings.colors.hpDeficit, "???")
+        return
     end
 
     local percentHp = (min / max) * 100
@@ -171,6 +282,16 @@ cb.updateHealth_player = function(health, unit, min, max)
 end
 
 
+--[[ Update the health on the target's frame.
+
+  VOID updateHealth_target()
+  :param: health FRAME - The corresponding element of the unitframe
+  :param: unit STRING - The unit
+  :param: min INT - The current health value
+  :param: max INT - The maximum health value for that unit
+
+  The target's frame requires a health string in the format ``percent|current``.
+]]
 cb.updateHealth_target = function(health, unit, min, max)
     if not unit then
         return

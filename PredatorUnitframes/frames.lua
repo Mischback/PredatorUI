@@ -20,7 +20,6 @@ frames.createPlayer = function(self)
     self.Health.value:SetJustifyH("RIGHT")
     self.Health.value:ClearAllPoints()
     self.Health.value:SetPoint("RIGHT", self.Health, "RIGHT", -2, -3)
-    self.Health.PostUpdate = callbacks.updateHealth_player
 
     -- adjust Power-bar (move behind health and offset)
     self.Power:SetFrameLevel(self.Health:GetFrameLevel()-5)
@@ -32,21 +31,23 @@ frames.createPlayer = function(self)
     self.Buffs:SetHeight(24)
     self.Buffs:SetWidth(self:GetWidth())
     self.Buffs.size = 24
-    self.Buffs.spacing = 8
-    self.Buffs.num = 8
+    self.Buffs.spacing = 5
+    self.Buffs.num = 6
     self.Buffs.PostCreateButton = elements.styleAura
-    self.Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -16)
+    self.Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -24)
 
     self.Debuffs = CreateFrame("FRAME", self:GetName().."Debuffs", self)
     self.Debuffs:SetHeight(24)
     self.Debuffs:SetWidth(self:GetWidth())
     self.Debuffs.size = 24
-    self.Debuffs.spacing = 8
-    self.Debuffs.num = 8
+    self.Debuffs.spacing = 5
+    self.Debuffs.num = 6
     self.Debuffs.PostCreateButton = elements.styleAura
     self.Debuffs:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 8)
 
-    -- hide the Name on the player frame
+    -- callbacks
+    self.Health.PostUpdate = callbacks.updateHealth_player
+    -- No Name on the player frame!
     self.Name:Hide()
     self.UNIT_NAME_UPDATE = callbacks.updateNameNoop
 end
@@ -66,7 +67,6 @@ frames.createTarget = function(self)
     self.Health.value:SetJustifyH("LEFT")
     self.Health.value:ClearAllPoints()
     self.Health.value:SetPoint("LEFT", self.Health, "LEFT", 3, -3)
-    self.Health.PostUpdate = callbacks.updateHealth_target
 
     -- adjust Power-bar (move behind health and offset)
     self.Power:SetFrameLevel(self.Health:GetFrameLevel()-5)
@@ -103,6 +103,8 @@ frames.createTarget = function(self)
     self.Castbar.Icon:SetPoint("LEFT", self.Castbar, "LEFT", 5, 0)
     self.Castbar.Text:SetPoint("LEFT", self.Castbar.Icon, "RIGHT", 3, -1)
 
+    -- callbacks
+    self.Health.PostUpdate = callbacks.updateHealth_target
     self.UNIT_NAME_UPDATE = callbacks.updateNameTarget
 end
 
@@ -119,13 +121,15 @@ frames.createTargetTarget = function(self)
     self.Health.value:SetJustifyH("CENTER")
     self.Health.value:ClearAllPoints()
     self.Health.value:SetPoint("CENTER", self.Health, "CENTER", 0, -3)
-    self.Health.PostUpdate = callbacks.updateHealth_percent
 
     -- move the Name to the top (centered)
     self.Name:SetParent(self.eyecandy)
     self.Name:SetJustifyH("CENTER")
     self.Name:ClearAllPoints()
     self.Name:SetPoint("TOP", self, "TOP", 0, 8)
+
+    -- callbacks
+    self.Health.PostUpdate = callbacks.updateHealthPercent
 end
 
 
@@ -141,13 +145,16 @@ frames.createPet = function(self)
     self.Health.value:SetJustifyH("CENTER")
     self.Health.value:ClearAllPoints()
     self.Health.value:SetPoint("CENTER", self.Health, "CENTER", 0, -3)
-    self.Health.PostUpdate = callbacks.updateHealth_percent
 
     -- move the Name to the top (centered)
     self.Name:SetParent(self.eyecandy)
     self.Name:SetJustifyH("CENTER")
     self.Name:ClearAllPoints()
     self.Name:SetPoint("TOP", self, "TOP", 0, 7)
+
+    -- callbacks
+    -- TODO: Should this be controllable with SavedVar (e.g. for hunters?)
+    self.Health.PostUpdate = callbacks.updateHealthPercent
 end
 
 

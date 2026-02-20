@@ -1,9 +1,8 @@
-# Specific TOC file for TBC, which is the only working version.
-# Please note, this layout requires a dedicated hacked oUF-core (oUF4TBC)
 ## Interface: 20505
 ## Category: Unit Frames
 ## Title: |cff79c947Predator|rUnitFrames
-## Notes: Personal layout; requires a dedicated hacked oUF-core (oUF4TBC)
+## Notes: Personal layout; based on oUF, but requires a working oUF core for TBC
+## IconTexture: Interface\AddOns\PredatorUnitFrames\addonIcon
 ## Author: Mischback
 ## Version: v0.0.1
 ## RequiredDeps: Predator_SharedMedia
