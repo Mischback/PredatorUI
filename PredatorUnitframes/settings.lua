@@ -22,28 +22,18 @@ if LSM == nil then
     return
 end
 
--- ==============
--- LOCALIZE STUFF
--- ==============
 local BACKGROUND = LSM.MediaType.BACKGROUND
 local BORDER = LSM.MediaType.BORDER
 local FONT = LSM.MediaType.FONT
 local STATUSBAR = LSM.MediaType.STATUSBAR
 
 
--- ================
--- OVERALL SETTINGS
--- ================
 settings.general = {
     ["borderWidth"] = 10,
     ["STATUS_OFFLINE"] = "offline",
     ["STATUS_DEAD"] = "dead",
 }
 
-
--- ======
--- COLORS
--- ======
 settings.colors = {
     ["borderDefault"] = { 0.5, 0.5, 0.5, 1 },
     ["hpBarFg"] = { 0.2, 0.2, 0.2, 1 },
@@ -64,27 +54,26 @@ settings.colors = {
     },
 }
 
--- ========
--- TEXTURES
--- ========
 settings.textures = {
-    ["bar"] = LSM:Fetch(STATUSBAR, "PredatorStatusbar", false),
-    ["bar2"] = LSM:Fetch(STATUSBAR, "PredatorElvBar", false),
+    --["bar"] = LSM:Fetch(STATUSBAR, "PredatorStatusbar_OG", false),
+    ["bar"] = LSM:Fetch(STATUSBAR, "PredatorStatusbar_Default", false),
+    ["bar2"] = LSM:Fetch(STATUSBAR, "PredatorStatusbar_Light", false),
     ["border"] = LSM:Fetch(BORDER, "PredatorBorder", false),
     ["solid"] = LSM:Fetch(BACKGROUND, "PredatorSolid", false),
     ["gloss"] = LSM:Fetch(BACKGROUND, "PredatorGloss", false),
     ["overlay"] = LSM:Fetch(BACKGROUND, "PredatorOverlay", false),
 }
 
--- =====
--- FONTS
--- =====
 settings.fonts = {
     ["hp"] = LSM:Fetch(FONT, "SharpDistress", false),
     ["details"] = LSM:Fetch(FONT, "MonaSans SemiCond SemiBold", false)
 }
 
 
+--[[ Provide default values for the SavedVariables.
+
+  TABLE createDefaults()
+]]
 settings.createDefaults = function()
     local config = {
         ["player"] = {
