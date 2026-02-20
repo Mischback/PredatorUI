@@ -32,6 +32,8 @@ settings.general = {
     ["borderWidth"] = 10,
     ["STATUS_OFFLINE"] = "offline",
     ["STATUS_DEAD"] = "dead",
+    ["playerLevel"] = 0,
+    ["questGreenLevel"] = 0,
 }
 
 settings.colors = {
@@ -51,6 +53,7 @@ settings.colors = {
         ["medium"] = "FFD145",
         ["easy"] = "397A00",
         ["normal"] = "DDDDDD",
+        ["trivial"] = "999999",
     },
 }
 

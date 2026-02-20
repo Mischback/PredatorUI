@@ -17,18 +17,12 @@ local debugging = function(text)
     DEFAULT_CHAT_FRAME:AddMessage('|cff79c947Predator|r|cffffffffUnitFrames|r: |cffeeeeee'..text..'|r')
 end
 
-local ctrl = CreateFrame("Frame")
-ctrl:RegisterEvent("ADDON_LOADED")
-ctrl:SetScript("OnEvent", function(self, event, addon)
-    if (addon ~= ADDON_NAME) then
-        return
-    end
 
-    if PredatorUnitFramesSettings == nil then
-        debugging("Creating default settings...")
-        PredatorUnitFramesSettings = settings.createDefaults()
-    end
+--[[ Spawning the frames using oUF.
 
+  VOID spawnFrames()
+]]
+local spawnFrames = function()
     oUF:RegisterStyle("PredatorUF_player", frames.createPlayer)
     oUF:RegisterStyle("PredatorUF_target", frames.createTarget)
     oUF:RegisterStyle("PredatorUF_targettarget", frames.createTargetTarget)
@@ -70,7 +64,46 @@ ctrl:SetScript("OnEvent", function(self, event, addon)
     oUF:Spawn("focus", "PredatorUF_partytest2"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest1", "TOPLEFT", 0, 10)
     oUF:Spawn("focus", "PredatorUF_partytest3"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest2", "TOPLEFT", 0, 10)
     oUF:Spawn("focus", "PredatorUF_partytest4"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest3", "TOPLEFT", 0, 10)
+end
 
-    self:UnregisterEvent("ADDON_LOADED")
-    debugging("loaded successfully!")
+
+--[[ Cache the player's level.
+
+  VOID updatePlayerLevel()
+  :param: newLevel INT - The player's level
+
+  This function will update the internal tracking of the player's level (and
+  the respective minimum enemy level for experience). The information is used
+  in the target unitframe's name update function.
+]]
+local updatePlayerLevel = function(newLevel)
+    settings.general.playerLevel = newLevel
+    settings.general.questGreenLevel = newLevel - GetQuestGreenRange()
+end
+
+
+local ctrl = CreateFrame("Frame")
+ctrl:RegisterEvent("ADDON_LOADED")  -- (self, event, addon)
+ctrl:RegisterEvent("PLAYER_LEVEL_UP")  -- (self, event, newLevel)
+ctrl:SetScript("OnEvent", function(self, event, param1)
+    if event == "ADDON_LOADED" then
+        if (param1 ~= ADDON_NAME) then
+            return
+        end
+
+        if PredatorUnitFramesSettings == nil then
+            debugging("Creating default settings...")
+            PredatorUnitFramesSettings = settings.createDefaults()
+        end
+
+        updatePlayerLevel(UnitLevel("player"))
+        spawnFrames()
+
+        self:UnregisterEvent("ADDON_LOADED")
+        debugging("loaded successfully!")
+    end
+
+    if event == "PLAYER_LEVEL_UP" then
+        updatePlayerLevel(param1)
+    end
 end)

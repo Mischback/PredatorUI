@@ -55,18 +55,18 @@ local assessTargetLevel = function(level)
         return format("|cff%s%s|r", settings.colors.targetLevel["danger"], "??")
     end
 
-    -- FIXME: The player's level is static/slow, so it will be far more
-    --        efficient to get the level while loading the addon and storing
-    --        it in the settings.
-    --        Even better: Register to some "level up event" to adjust this.
-    local difference = level - UnitLevel("player")
+    if level < settings.general.questGreenLevel then
+        return format("|cff%s%d|r", settings.colors.targetLevel["trivial"], level)
+    end
+
+    local difference = level - settings.general.playerLevel
     if difference > 4 then
         return format("|cff%s%d|r", settings.colors.targetLevel["hard"], level)
     elseif difference > 2 then
         return format("|cff%s%d|r", settings.colors.targetLevel["medium"], level)
     elseif difference > -3 then
         return format("|cff%s%d|r", settings.colors.targetLevel["normal"], level)
-    elseif -difference < GetQuestGreenRange() then
+    elseif difference > -6 then
         return format("|cff%s%d|r", settings.colors.targetLevel["easy"], level)
     else
         return format("|cff%s%d|r", settings.colors.targetLevel["danger"], level)
