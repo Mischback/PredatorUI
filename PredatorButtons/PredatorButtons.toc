@@ -2,6 +2,7 @@
 ## Category: Action Bars
 ## Title: |cff79c947Predator|rButtons
 ## Notes: Minimal Action Bar replacement
+## IconTexture: Interface\AddOns\PredatorButtons\addonIcon
 ## Author: Mischback
 ## Version: v0.1.3
 ## DefaultState: disabled
