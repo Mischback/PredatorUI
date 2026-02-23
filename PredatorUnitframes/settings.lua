@@ -34,6 +34,10 @@ settings.general = {
     ["STATUS_DEAD"] = "dead",
     ["playerLevel"] = 0,
     ["questGreenLevel"] = 0,
+    ["auraMode"] = {
+        ["allow"] = "allow",
+        ["ban"] = "ban",
+    }
 }
 
 settings.colors = {
@@ -81,6 +85,12 @@ settings.createDefaults = function()
     local config = {
         ["player"] = {
             ["position"] = {"RIGHT", UIParent, "CENTER", -75, -250},
+            ["buffMode"] = "allow",
+            ["buffList"] = {
+                [19740] = true,  -- Segen der Macht
+            },
+            ["debuffMode"] = "ban",
+            ["debuffList"] = {},
         },
         ["pet"] = {
             ["position"] = {"RIGHT", "PredatorUF_player", "LEFT", -20, 0},
@@ -92,6 +102,11 @@ settings.createDefaults = function()
         },
         ["target"] = {
             ["position"] = {"LEFT", UIParent, "CENTER", 75, -250},
+            ["buffMode"] = "ban",
+            ["buffList"] = {
+            },
+            ["debuffMode"] = "ban",
+            ["debuffList"] = {},
         },
         ["targettarget"] = {
             ["position"] = {"LEFT", "PredatorUF_target", "RIGHT", 20, 0},

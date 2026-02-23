@@ -31,17 +31,17 @@ frames.createPlayer = function(self)
     self.Buffs:SetHeight(24)
     self.Buffs:SetWidth(self:GetWidth())
     self.Buffs.size = 24
-    self.Buffs.spacing = 5
-    self.Buffs.num = 6
+    self.Buffs.spacing = 7
+    self.Buffs.num = 5
     self.Buffs.PostCreateButton = elements.styleAura
-    self.Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -24)
+    self.Buffs:SetPoint("TOPLEFT", self, "BOTTOMLEFT", 0, -16)
 
     self.Debuffs = CreateFrame("FRAME", self:GetName().."Debuffs", self)
     self.Debuffs:SetHeight(24)
     self.Debuffs:SetWidth(self:GetWidth())
     self.Debuffs.size = 24
-    self.Debuffs.spacing = 5
-    self.Debuffs.num = 6
+    self.Debuffs.spacing = 7
+    self.Debuffs.num = 5
     self.Debuffs.PostCreateButton = elements.styleAura
     self.Debuffs:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 8)
 
@@ -50,6 +50,18 @@ frames.createPlayer = function(self)
     -- No Name on the player frame!
     self.Name:Hide()
     self.UNIT_NAME_UPDATE = callbacks.updateNameNoop
+
+    if PredatorUnitFramesSettings.player.buffMode == settings.general.auraMode.allow then
+        self.Buffs.CustomFilter = callbacks.filterBuffsAllow
+    else
+        self.Buffs.CustomFilter = callbacks.filterBuffsBan
+    end
+
+    if PredatorUnitFramesSettings.player.debuffMode == settings.general.auraMode.allow then
+        self.Debuffs.CustomFilter = callbacks.filterDebuffsAllow
+    else
+        self.Debuffs.CustomFilter = callbacks.filterDebuffsBan
+    end
 end
 
 
@@ -96,7 +108,7 @@ frames.createTarget = function(self)
     self.Debuffs.spacing = 5
     self.Debuffs.num = 6
     self.Debuffs.PostCreateButton = elements.styleAura
-    self.Debuffs:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 12)
+    self.Debuffs:SetPoint("BOTTOMLEFT", self, "TOPLEFT", 0, 14)
 
     -- provide a castbar
     self.Castbar = elements.createCastbar(self)
@@ -106,6 +118,18 @@ frames.createTarget = function(self)
     -- callbacks
     self.Health.PostUpdate = callbacks.updateHealth_target
     self.UNIT_NAME_UPDATE = callbacks.updateNameTarget
+
+    if PredatorUnitFramesSettings.target.buffMode == settings.general.auraMode.allow then
+        self.Buffs.CustomFilter = callbacks.filterBuffsAllow
+    else
+        self.Buffs.CustomFilter = callbacks.filterBuffsBan
+    end
+
+    if PredatorUnitFramesSettings.target.debuffMode == settings.general.auraMode.allow then
+        self.Debuffs.CustomFilter = callbacks.filterDebuffsAllow
+    else
+        self.Debuffs.CustomFilter = callbacks.filterDebuffsBan
+    end
 end
 
 

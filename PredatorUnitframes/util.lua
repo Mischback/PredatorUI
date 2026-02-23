@@ -54,67 +54,16 @@ util.setBorderColor = function(self, r, g, b)
 end
 
 
-util.applyBorder = function(frame, size)
-    if not frame or type(frame) ~= "table" or frame.borderTextures then
-        return
-    end
+--[[ Add a border to an element.
 
-    if not size then
-        size = settings.general.borderWidth
-    end
+  VOID applyBorder()
+  :param: frame FRAME - The element to add the border to
+  :param: size INT - Override for the size.
 
-    local tex = {}
-
-    for i = 1, 8 do
-        tex[i] = frame:CreateTexture(nil, "OVERLAY")
-        tex[i]:SetTexture(settings.textures.border)
-        tex[i]:SetWidth(size)
-        tex[i]:SetHeight(size)
-    end
-
-    local adjust = size / 2 - 6
-
-    tex[1].id = "TOPLEFT"
-    tex[1]:SetTexCoord(0, 1/3, 0, 1/3)
-    tex[1]:SetPoint("TOPLEFT", frame, -5 - adjust, 5 + adjust)
-
-    tex[2].id = "TOPRIGHT"
-    tex[2]:SetTexCoord(2/3, 1, 0, 1/3)
-    tex[2]:SetPoint("TOPRIGHT", frame, 5 + adjust, 5 + adjust)
-
-    tex[3].id = "TOP"
-    tex[3]:SetTexCoord(1/3, 2/3, 0, 1/3)
-    tex[3]:SetPoint("TOPLEFT", tex[1], "TOPRIGHT")
-    tex[3]:SetPoint("TOPRIGHT", tex[2], "TOPLEFT")
-
-    tex[4].id = "BOTTOMLEFT"
-    tex[4]:SetTexCoord(0, 1/3, 2/3, 1)
-    tex[4]:SetPoint("BOTTOMLEFT", frame, -5 - adjust, -5 - adjust)
-
-    tex[5].id = "BOTTOMRIGHT"
-    tex[5]:SetTexCoord(2/3, 1, 2/3, 1)
-    tex[5]:SetPoint("BOTTOMRIGHT", frame, 5 + adjust, -5 - adjust)
-
-    tex[6].id = "BOTTOM"
-    tex[6]:SetTexCoord(1/3, 2/3, 2/3, 1)
-    tex[6]:SetPoint("BOTTOMLEFT", tex[4], "BOTTOMRIGHT")
-    tex[6]:SetPoint("BOTTOMRIGHT", tex[5], "BOTTOMLEFT")
-
-    tex[7].id = "LEFT"
-    tex[7]:SetTexCoord(0, 1/3, 1/3, 2/3)
-    tex[7]:SetPoint("TOPLEFT", tex[1], "BOTTOMLEFT")
-    tex[7]:SetPoint("BOTTOMLEFT", tex[4], "TOPLEFT")
-
-    tex[8].id = "RIGHT"
-    tex[8]:SetTexCoord(2/3, 1, 1/3, 2/3)
-    tex[8]:SetPoint("TOPRIGHT", tex[2], "BOTTOMRIGHT")
-    tex[8]:SetPoint("BOTTOMRIGHT", tex[5], "TOPRIGHT")
-
-    frame.borderTextures = tex
-    frame.SetBorderColor = util.setBorderColor
-
-    util.setBorderColor(frame)
-end
+  The implementation is provided in ``PredatorSharedMedia`` and used throughout
+  all *Predator* addons.
+]]
+util.applyBorder = PredatorSharedMedia.applyBorder
 
 
 --[[

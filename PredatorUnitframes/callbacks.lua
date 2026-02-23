@@ -320,5 +320,37 @@ cb.updateHealth_target = function(health, unit, min, max)
 end
 
 
+local filterAuraAllow = function(spellId, auraList)
+    return auraList[spellId]
+end
+
+
+local filterAuraBan = function(spellId, auraList)
+    return not auraList[spellId]
+end
+
+
+-- cb.filterBuffsPlayer = function(element, unit, button, aura, name, icon, applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod)
+cb.filterBuffsAllow = function(_, unit, _, _, _, _, _, _, _, _, _, _, _, spellId)
+    -- return filterAuraAllow(spellId, PredatorUnitFramesSettings.player.buffList)
+    return filterAuraAllow(spellId, PredatorUnitFramesSettings[unit]["buffList"])
+end
+
+
+cb.filterBuffsBan = function(_, unit, _, _, _, _, _, _, _, _, _, _, _, spellId)
+    -- return filterAuraBan(spellId, PredatorUnitFramesSettings.player.buffList)
+    return filterAuraBan(spellId, PredatorUnitFramesSettings[unit]["buffList"])
+end
+
+
+cb.filterDebuffsAllow = function(_, unit, _, _, _, _, _, _, _, _, _, _, _, spellId)
+    return filterAuraAllow(spellId, PredatorUnitFramesSettings[unit]["debuffList"])
+end
+
+
+cb.filterDebuffsBan = function(_, unit, _, _, _, _, _, _, _, _, _, _, _, spellId)
+    return filterAuraBan(spellId, PredatorUnitFramesSettings[unit]["debuffList"])
+end
+
 -- Attach to the addon's namespace
 ns.callbacks = cb
