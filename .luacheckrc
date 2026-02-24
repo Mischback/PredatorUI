@@ -19,6 +19,7 @@ globals = {
     -- our addons' global namespaces
     "PredatorButtons",
     "PredatorMinimap",
+    "PredatorSharedMedia",
 
     -- Our addons' SavedVariables
     "PredatorButtonsSettings",
@@ -50,10 +51,12 @@ read_globals = {
     "CreateFrame",
     "IsShiftKeyDown",
     "RegisterStateDriver",
+    "GetQuestGreenRange",
     "UnitClass",
     "UnitIsConnected",
     "UnitIsDead",
     "UnitIsFeignDeath",
+    "UnitLevel",
     "UnitName",
     "ToggleDropDownMenu",
     "UnitFrame_OnEnter",
