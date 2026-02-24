@@ -16,6 +16,7 @@ local C_UnitAuras = C_UnitAuras
 local UnitIsConnected = UnitIsConnected
 local UnitIsDead = UnitIsDead
 local UnitIsFeignDeath = UnitIsFeignDeath
+local UnitLevel = UnitLevel
 local UnitName = UnitName
 local ToggleDropDownMenu = ToggleDropDownMenu
 local format = string.format
@@ -320,34 +321,69 @@ cb.updateHealth_target = function(health, unit, min, max)
 end
 
 
+--[[ Allow an Aura to be displayed.
+
+  BOOL filterAuraAllow()
+  :param: spellId INT - The ID of the aura to be checked
+  :param: auraList TABLE - The list to be consulted
+]]
 local filterAuraAllow = function(spellId, auraList)
     return auraList[spellId]
 end
 
 
+--[[ Forbid an Aura to be displayed.
+
+  BOOL filterAuraBan()
+  :param: spellId INT - The ID of the aura to be checked
+  :param: auraList TABLE - The list to be consulted
+]]
 local filterAuraBan = function(spellId, auraList)
     return not auraList[spellId]
 end
 
 
--- cb.filterBuffsPlayer = function(element, unit, button, aura, name, icon, applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod)
+--[[ Allow a Buff to be displayed.
+
+  BOOL filterBuffsAllow()
+  :param: unit STRING - The unit to be checked
+  :param: spellId INT - The ID of the aura to be checked
+]]
 cb.filterBuffsAllow = function(_, unit, _, _, _, _, _, _, _, _, _, _, _, spellId)
-    -- return filterAuraAllow(spellId, PredatorUnitFramesSettings.player.buffList)
+-- cb.filterBuffsPlayer = function(element, unit, button, aura, name, icon, applications, dispelName, duration, expirationTime, sourceUnit, isStealable, nameplateShowPersonal, spellId, canApplyAura, isBossAura, isFromPlayerOrPlayerPet, nameplateShowAll, timeMod)
     return filterAuraAllow(spellId, PredatorUnitFramesSettings[unit]["buffList"])
 end
 
 
+--[[ Forbid a Buff to be displayed.
+
+  BOOL filterBuffsBan()
+  :param: unit STRING - The unit to be checked
+  :param: spellId INT - The ID of the aura to be checked
+]]
 cb.filterBuffsBan = function(_, unit, _, _, _, _, _, _, _, _, _, _, _, spellId)
     -- return filterAuraBan(spellId, PredatorUnitFramesSettings.player.buffList)
     return filterAuraBan(spellId, PredatorUnitFramesSettings[unit]["buffList"])
 end
 
 
+--[[ Allow a Debuff to be displayed.
+
+  BOOL filterBuffsAllow()
+  :param: unit STRING - The unit to be checked
+  :param: spellId INT - The ID of the aura to be checked
+]]
 cb.filterDebuffsAllow = function(_, unit, _, _, _, _, _, _, _, _, _, _, _, spellId)
     return filterAuraAllow(spellId, PredatorUnitFramesSettings[unit]["debuffList"])
 end
 
 
+--[[ Forbid a Debuff to be displayed.
+
+  BOOL filterDebuffsBan()
+  :param: unit STRING - The unit to be checked
+  :param: spellId INT - The ID of the aura to be checked
+]]
 cb.filterDebuffsBan = function(_, unit, _, _, _, _, _, _, _, _, _, _, _, spellId)
     return filterAuraBan(spellId, PredatorUnitFramesSettings[unit]["debuffList"])
 end

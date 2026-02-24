@@ -200,12 +200,21 @@ end
   Very basic setup. The unit's Name and Health-value share the same spot (Name
   will be hidden when the health is below max).
 
-  NOTE: spacing of ``15`` between TOP and BOTTOM.
-
-  TODO: Does this require some buff visualization?
+  NOTE: spacing of ``10`` between TOP and BOTTOM.
 ]]
 frames.createPartyMember = function(self)
     elements.createBaseFrame(self, 72, 28, 14, 14)
+
+    self.Debuffs = CreateFrame("FRAME", self:GetName().."Debuffs", self)
+    self.Debuffs:SetHeight(24)
+    self.Debuffs:SetWidth(24 * 3 + 14)
+    self.Debuffs.size = 24
+    self.Debuffs.spacing = 7
+    self.Debuffs.num = 3
+    self.Debuffs["growth-x"] = "LEFT"
+    self.Debuffs.initialAnchor = "BOTTOMRIGHT"
+    self.Debuffs.PostCreateButton = elements.styleAura
+    self.Debuffs:SetPoint("RIGHT", self, "LEFT", -6, 0)
 end
 
 

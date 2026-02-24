@@ -13,6 +13,10 @@ local frames = ns.frames
 local oUF = ns.oUF
 
 
+local UnitLevel = UnitLevel
+local GetQuestGreenRange = GetQuestGreenRange
+
+
 local debugging = function(text)
     DEFAULT_CHAT_FRAME:AddMessage('|cff79c947Predator|r|cffffffffUnitFrames|r: |cffeeeeee'..text..'|r')
 end
@@ -46,7 +50,6 @@ local spawnFrames = function()
     oUF:SetActiveStyle("PredatorUF_focus")
     oUF:Spawn("focus", "PredatorUF_focus"):SetPoint(unpack(PredatorUnitFramesSettings.focus.position))
 
-    -- TODO: Heavily work in progress!!!
     -- PlayerCastingBarFrame
     if PredatorUnitFramesSettings.playerCastbar.useThis then
         if PredatorUnitFramesSettings.playerCastbar.mode == "simple" then
@@ -58,12 +61,38 @@ local spawnFrames = function()
         cb:UnregisterAllEvents()
     end
 
-    -- FIXME: Just for development!
     oUF:SetActiveStyle("PredatorUF_party")
-    oUF:Spawn("focus", "PredatorUF_partytest1"):SetPoint("BOTTOMRIGHT", "PredatorUF_player", "TOPLEFT", 0, 100)
-    oUF:Spawn("focus", "PredatorUF_partytest2"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest1", "TOPLEFT", 0, 10)
-    oUF:Spawn("focus", "PredatorUF_partytest3"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest2", "TOPLEFT", 0, 10)
-    oUF:Spawn("focus", "PredatorUF_partytest4"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest3", "TOPLEFT", 0, 10)
+    local party = oUF:SpawnHeader("PredatorUF_party", nil,
+    -- "custom [@raid6,exists] hide; [@raid1,exists] show; [group:party,nogroup:raid] show; hide",
+    {
+        ["showPlayer"] = true,  -- FIXME: Make configurable
+        ["showSolo"] = true,  -- FIXME: Should be ``false`` for production!
+        ["showParty"] = true,
+        ["showRaid"] = false,
+        ["groupBy"] = "ROLE",
+        ["groupingOrder"] = "TANK,HEAL,DAMAGE",  -- FIXME: Make configurable
+        ["sortMethod"] = "NAME",
+        ["point"] = "BOTTOM",
+        ["maxColumns"] = 1,
+        ["unitsPerColumn"] = 5,
+        ["columnSpacing"] = 0,
+        ["xOffset"] = 0,
+        ["yOffset"] = 10,
+        ["columnAnchorPoint"] = "BOTTOM",
+        -- ["oUF-initialConfigFunction"] = format([[
+        --    self:SetWidth(%d)
+        --     self:SetHeight(%d)
+        -- ]], 72, 28),
+    })
+    party:SetPoint(unpack(PredatorUnitFramesSettings.party.position))
+    party:Show()  -- TODO: Is this required or will this happen automatically
+                  --       when the player enters a group?
+
+    -- FIXME: Just for testing / development!
+    -- oUF:Spawn("focus", "PredatorUF_partytest1"):SetPoint("BOTTOMRIGHT", "PredatorUF_player", "TOPLEFT", 0, 100)
+    -- oUF:Spawn("focus", "PredatorUF_partytest2"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest1", "TOPLEFT", 0, 10)
+    -- oUF:Spawn("focus", "PredatorUF_partytest3"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest2", "TOPLEFT", 0, 10)
+    -- oUF:Spawn("focus", "PredatorUF_partytest4"):SetPoint("BOTTOMLEFT", "PredatorUF_partytest3", "TOPLEFT", 0, 10)
 end
 
 

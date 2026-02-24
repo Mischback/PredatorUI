@@ -88,6 +88,8 @@ settings.createDefaults = function()
             ["buffMode"] = "allow",
             ["buffList"] = {
                 [19740] = true,  -- Segen der Macht
+                [21082] = true,  -- Siegel des Kreuzfahrers
+                [21084] = true,  -- Siegel der Rechtschaffenheit
             },
             ["debuffMode"] = "ban",
             ["debuffList"] = {},
@@ -113,6 +115,10 @@ settings.createDefaults = function()
         },
         ["focus"] = {
             ["position"] = {"BOTTOMLEFT", "PredatorUF_targettarget", "TOPLEFT", 0, 100},
+        },
+        ["party"] = {
+            ["healerPosition"] = {"BOTTOMRIGHT", UIParent, "CENTER", -150, -125},
+            ["position"] = {"BOTTOMRIGHT", UIParent, "CENTER", -350, -150}
         },
     }
 
