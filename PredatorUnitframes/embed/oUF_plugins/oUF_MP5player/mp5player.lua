@@ -16,6 +16,22 @@ local timestampLastTick = 0
 local timestampMP5Start = nil
 
 
+local GetSpellPowerCost = GetSpellPowerCost
+local GetTime = GetTime
+local UnitPower = UnitPower
+
+
+--[[ Determine if a cast consumed mana.
+
+  VOID castCompleted()
+  :param: spellID INT - The (just finished) spell's ID
+
+  Only a spell that actually consumed mana will reset the mana regen or -
+  the other way around - a free cast will not reset the mana regen.
+
+  We calculate the (internal) timestamp, when regen kicks in again
+  (``timestampMP5Start``) and store it in a module-specific variable.
+]]
 local castCompleted = function(_, _, _, _, spellID)
     local resetMP5 = false
     local spellCosts = GetSpellPowerCost(spellID)
@@ -32,6 +48,16 @@ local castCompleted = function(_, _, _, _, spellID)
 end
 
 
+--[[ Track changes to the player's mana.
+
+  VOID updateUnitPower()
+
+  If it's a positive change, we store the timestamp of that tick in a
+  module-specific variable (``timestampLastTick``).
+
+  Please note: Consuming a mana potion messes with the next iteration of the
+  regen cycle!
+]]
 local updateUnitPower = function()
     local powerValue = UnitPower("player", POWER_TYPE_MANA)
     if powerValue > currentPowerValue then
@@ -42,6 +68,16 @@ local updateUnitPower = function()
 end
 
 
+--[[ Disable this plugin.
+
+  BOOL disableMP5()
+  :param: self - The unitframe (handled by oUF)
+
+  Unregister the event handlers, basically.
+  The ``enableMP5()`` should ensure, that nothing fuzzy is done to any frame
+  without the proper setup in the layout. However, this function will do
+  cleanup.
+]]
 local disableMP5 = function(self)
     if not self then
         return false
@@ -60,6 +96,23 @@ local disableMP5 = function(self)
     return false
 end
 
+
+--[[ Update the actual bar value.
+
+  VOID updateMP5()
+  :param: self - The unitframe (handled by oUF)
+  :param: elapsed INT - Time since this function was called the last time
+
+  The actual core function. It determines if regen is currently running and
+  visualize either the cooldown period until regen kicks in (taking 5 seconds
+  after the last successful spell cast) or the period until the next regen
+  tick (roughly 2 seconds).
+
+  Hides the visualization if the player is at full mana.
+
+  This function is applied as an OnUpdate script, so it must be as efficient
+  as possible!
+]]
 local updateMP5 = function(self, elapsed)
     local mp5 = self.MP5
     mp5.deltaLastUpdate = mp5.deltaLastUpdate + (tonumber(elapsed) or 0)
@@ -92,6 +145,15 @@ local updateMP5 = function(self, elapsed)
 end
 
 
+--[[ Enable this plugin.
+
+  BOOL enableMP5()
+  :param: self - The unitframe (handled by oUF)
+  :param: unit STRING - provided by oUF
+
+  Initializes the visualization and some internal variables and sets up the
+  event handlers and update scripts.
+]]
 local enableMP5 = function(self, unit)
     if unit ~= "player" then
         disableMP5(self)
