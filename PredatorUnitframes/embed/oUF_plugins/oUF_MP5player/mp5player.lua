@@ -1,7 +1,26 @@
+--[[ Provide a visual indicator for mana regen.
+
+  Mana regen kicks in after a spell completed, with a 5 second delay. This
+  plugin shows this delay and visualizes the time between regen ticks.
+
+  It works only for the player's unitframe and requires a dedicated setup (or
+  specific elements) on that frame.
+
+  .MP5 - A statusbar
+  .MP5.Spark - A texture which is attached to the right edge of the statusbar's
+               texture, e.g. ``SetPoint("RIGHT", MP5:GetStatusBarTexture())``
+
+  This plugin works by setting values on the statusbar, shifting the *Spark*
+  position automatically.
+]]
+
+
 -- Provide addon-specific environment, don't work on global namespace
 local _, ns = ...
 
 -- Get a reference to oUF
+-- TODO: This only works for the embedded setup. Must be modified if this plugin
+--       is deployed in a different structure.
 local oUF = ns.oUF
 
 
@@ -11,14 +30,15 @@ local MP5_TICK = 2  -- Seconds for one Mana Regen tick
 local MP5_UPDATE_FREQUENCY = 0.05  -- Seconds between update of the bar
 local POWER_TYPE_MANA = 0  -- Index of MANA while accessing ``UnitPower()``
 
+-- INTERNAL VARIABLES
 local currentPowerValue = 0
 local timestampLastTick = 0
 local timestampMP5Start = nil
 
-
 local GetSpellPowerCost = GetSpellPowerCost
 local GetTime = GetTime
 local UnitPower = UnitPower
+local UnitPowerMax = UnitPowerMax
 
 
 --[[ Determine if a cast consumed mana.
