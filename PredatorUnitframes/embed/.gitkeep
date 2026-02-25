@@ -1,0 +1,11 @@
+# This is where we keep a hacked oUF core.
+#
+# oUF is maintained for WoW Retail only. However, the ElvUI team maintains a
+# fork, which works on any version and can be dropped here.
+#
+# ElvUI's oUF contains compatibility code and may be slightly inefficient for
+# us, because we only aim to support one WoW version.
+#
+# Patching oUF is do-able, but tedious. We stick with ElvUI's oUF core for now.
+# I will not *distribute* that one, though. Let's honor the work they put into
+# that awesome UI!

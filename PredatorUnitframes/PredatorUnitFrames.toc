@@ -1,0 +1,22 @@
+## Interface: 20505
+## Category: Unit Frames
+## Title: |cff79c947Predator|rUnitFrames
+## Notes: Personal layout; based on oUF, but requires a working oUF core for TBC
+## IconTexture: Interface\AddOns\PredatorUnitFrames\addonIcon
+## Author: Mischback
+## Version: v0.0.1
+## RequiredDeps: Predator_SharedMedia
+## X-oUF: Predator_oUF
+## DefaultState: Disabled
+
+embed\LibDispel\LibDispel.lua
+embed\oUF\oUF_TBC.xml
+embed\oUF_plugins\oUF_MP5player\mp5player.lua
+
+settings.lua
+util.lua
+callbacks.lua
+elements.lua
+frames.lua
+
+spawn.lua

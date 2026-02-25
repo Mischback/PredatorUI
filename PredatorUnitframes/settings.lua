@@ -1,0 +1,130 @@
+--[[
+  Define the settings for the layout.
+
+  Settings range from (very static) layout-specific things like the definition
+  of textures to (more or less) dynamic settings, which might be changed on a
+  per-character base.
+]]
+
+-- Provide addon-specific environment, don't work on global namespace
+local _, ns = ...
+
+local settings = {}
+
+-- Get access to shared media.
+--
+-- Predator-related shared media is provided in a dedicated addon.
+local LSM = LibStub("LibSharedMedia-3.0")
+
+if LSM == nil then
+    return
+end
+
+local BACKGROUND = LSM.MediaType.BACKGROUND
+local BORDER = LSM.MediaType.BORDER
+local FONT = LSM.MediaType.FONT
+local STATUSBAR = LSM.MediaType.STATUSBAR
+
+
+settings.general = {
+    ["borderWidth"] = 10,
+    ["STATUS_OFFLINE"] = "offline",
+    ["STATUS_DEAD"] = "dead",
+    ["playerClass"] = nil,
+    ["playerLevel"] = 0,
+    ["questGreenLevel"] = 0,
+    ["auraMode"] = {
+        ["allow"] = "allow",
+        ["ban"] = "ban",
+    },
+    ["mp5SparkWidth"] = 3,
+}
+
+settings.colors = {
+    ["borderDefault"] = { 0.5, 0.5, 0.5, 1 },
+    ["hpBarFg"] = { 0.2, 0.2, 0.2, 1 },
+    ["hpBarBg"] = { 0.3, 0.05, 0.05, 1 },
+    ["hpMyHeal"] = { 0.4, 1, 0.4, 1 },  -- FIXME: needs better color!
+    ["hpHeal"] = { 0.4, 1, 0.4, 1 },  -- FIXME: needs better color!
+    ["castbarGeneric"] = { 0.86, 0.5, 0, 1 },
+    ["mp5Spark"] = { 0.5, 0.5, 0.5, 0.5 },  -- FIXME: needs better color!
+    ["hpValue"] = "DDDDDD",
+    ["hpDeficit"] = "CC2222",
+    ["name"] = "DDDDDD",
+    ["glossIntensity"] = 0.7,
+    ["targetLevel"] = {
+        ["danger"] = "FF0000",
+        ["hard"] = "FFAE00",
+        ["medium"] = "FFD145",
+        ["easy"] = "397A00",
+        ["normal"] = "DDDDDD",
+        ["trivial"] = "999999",
+    },
+}
+
+settings.textures = {
+    --["bar"] = LSM:Fetch(STATUSBAR, "PredatorStatusbar_OG", false),
+    ["bar"] = LSM:Fetch(STATUSBAR, "PredatorStatusbar_Default", false),
+    ["bar2"] = LSM:Fetch(STATUSBAR, "PredatorStatusbar_Light", false),
+    ["border"] = LSM:Fetch(BORDER, "PredatorBorder", false),
+    ["solid"] = LSM:Fetch(BACKGROUND, "PredatorSolid", false),
+    ["gloss"] = LSM:Fetch(BACKGROUND, "PredatorGloss", false),
+    ["overlay"] = LSM:Fetch(BACKGROUND, "PredatorOverlay", false),
+}
+
+settings.fonts = {
+    ["hp"] = LSM:Fetch(FONT, "SharpDistress", false),
+    ["details"] = LSM:Fetch(FONT, "MonaSans SemiCond SemiBold", false)
+}
+
+
+--[[ Provide default values for the SavedVariables.
+
+  TABLE createDefaults()
+]]
+settings.createDefaults = function()
+    local config = {
+        ["player"] = {
+            ["position"] = {"RIGHT", UIParent, "CENTER", -75, -250},
+            ["buffMode"] = "allow",
+            ["buffList"] = {
+                [19740] = true,  -- Segen der Macht
+                [21082] = true,  -- Siegel des Kreuzfahrers
+                [21084] = true,  -- Siegel der Rechtschaffenheit
+            },
+            ["debuffMode"] = "ban",
+            ["debuffList"] = {},
+        },
+        ["pet"] = {
+            ["position"] = {"RIGHT", "PredatorUF_player", "LEFT", -20, 0},
+        },
+        ["playerCastbar"] = {
+            ["useThis"] = true,
+            ["mode"] = "simple",
+            ["position"] = {"CENTER", UIParent, "CENTER", 0, -150},
+        },
+        ["target"] = {
+            ["position"] = {"LEFT", UIParent, "CENTER", 75, -250},
+            ["buffMode"] = "ban",
+            ["buffList"] = {
+            },
+            ["debuffMode"] = "ban",
+            ["debuffList"] = {},
+        },
+        ["targettarget"] = {
+            ["position"] = {"LEFT", "PredatorUF_target", "RIGHT", 20, 0},
+        },
+        ["focus"] = {
+            ["position"] = {"BOTTOMLEFT", "PredatorUF_targettarget", "TOPLEFT", 0, 100},
+        },
+        ["party"] = {
+            ["healerPosition"] = {"BOTTOMRIGHT", UIParent, "CENTER", -150, -125},
+            ["position"] = {"BOTTOMRIGHT", UIParent, "CENTER", -350, -150}
+        },
+    }
+
+    return config
+end
+
+-- Attach to the addon's namespace
+ns.settings = settings
