@@ -36,7 +36,9 @@ local spawnFrames = function()
     oUF:RegisterStyle("PredatorUF_playercastbar_simple", frames.createPlayerCastbarSimple)
 
     oUF:SetActiveStyle("PredatorUF_player")
-    oUF:Spawn("player", "PredatorUF_player"):SetPoint(unpack(PredatorUnitFramesSettings.player.position))
+    local playerUF = oUF:Spawn("player", "PredatorUF_player")
+    playerUF:SetPoint(unpack(PredatorUnitFramesSettings.player.position))
+    -- playerUF:EnableElement("MP5player")
 
     oUF:SetActiveStyle("PredatorUF_pet")
     oUF:Spawn("pet", "PredatorUF_pet"):SetPoint(unpack(PredatorUnitFramesSettings.pet.position))
@@ -125,6 +127,7 @@ ctrl:SetScript("OnEvent", function(self, event, param1)
             PredatorUnitFramesSettings = settings.createDefaults()
         end
 
+        settings.general.playerClass = UnitClassBase("player")
         updatePlayerLevel(UnitLevel("player"))
         spawnFrames()
 

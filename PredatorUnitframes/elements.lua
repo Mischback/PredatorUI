@@ -170,6 +170,31 @@ elements.createCastbar = function(self)
 end
 
 
+elements.createMP5 = function(self, powerbar)
+    local mp5 = CreateFrame("STATUSBAR", nil, powerbar)
+    mp5:SetStatusBarTexture(settings.textures.solid)
+    mp5:SetFrameLevel(powerbar:GetFrameLevel()+2)
+    mp5:ClearAllPoints()
+    mp5:SetAllPoints(powerbar)
+
+    local mp5Tex = mp5:GetStatusBarTexture()
+    mp5Tex:SetAlpha(0)
+
+    local spark = mp5:CreateTexture(nil, "OVERLAY")
+    spark:SetTexture(settings.textures.solid)  -- FIXME: Needs dedicated texture!
+    spark:SetVertexColor(unpack(settings.colors.mp5Spark))
+    spark:SetBlendMode("ADD")
+    spark:SetPoint("RIGHT", mp5Tex)
+    spark:SetPoint("TOP")
+    spark:SetPoint("BOTTOM")
+    spark:SetWidth(settings.general.mp5SparkWidth)
+
+    mp5.Spark = spark
+
+    return mp5
+end
+
+
 elements.styleAura = function(frame, btn)
     btn.Icon:SetTexCoord(0.1, 0.9, 0.1, 0.9)
 

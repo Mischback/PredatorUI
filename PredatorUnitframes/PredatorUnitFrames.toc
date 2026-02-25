@@ -11,6 +11,7 @@
 
 embed\LibDispel\LibDispel.lua
 embed\oUF\oUF_TBC.xml
+embed\oUF_plugins\oUF_MP5player\mp5player.lua
 
 settings.lua
 util.lua

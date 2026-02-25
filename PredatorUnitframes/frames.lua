@@ -27,6 +27,11 @@ frames.createPlayer = function(self)
     self.Power:SetPoint("TOPLEFT", self, "LEFT", -8, 0)
     self.Power:SetPoint("BOTTOMRIGHT", self, "BOTTOM", 40, -8)
 
+    -- MP5
+    if settings.general.playerClass ~= "WARRIOR" and settings.general.playerClass ~= "ROGUE" then
+        self.MP5 = elements.createMP5(self, self.Power)
+    end
+
     self.Buffs = CreateFrame("FRAME", self:GetName().."Buffs", self)
     self.Buffs:SetHeight(24)
     self.Buffs:SetWidth(self:GetWidth())

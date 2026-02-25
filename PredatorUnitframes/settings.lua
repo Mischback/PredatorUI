@@ -4,8 +4,6 @@
   Settings range from (very static) layout-specific things like the definition
   of textures to (more or less) dynamic settings, which might be changed on a
   per-character base.
-
-  TODO: Implement/setup SavedVariables!
 ]]
 
 -- Provide addon-specific environment, don't work on global namespace
@@ -32,12 +30,14 @@ settings.general = {
     ["borderWidth"] = 10,
     ["STATUS_OFFLINE"] = "offline",
     ["STATUS_DEAD"] = "dead",
+    ["playerClass"] = nil,
     ["playerLevel"] = 0,
     ["questGreenLevel"] = 0,
     ["auraMode"] = {
         ["allow"] = "allow",
         ["ban"] = "ban",
-    }
+    },
+    ["mp5SparkWidth"] = 3,
 }
 
 settings.colors = {
@@ -47,6 +47,7 @@ settings.colors = {
     ["hpMyHeal"] = { 0.4, 1, 0.4, 1 },  -- FIXME: needs better color!
     ["hpHeal"] = { 0.4, 1, 0.4, 1 },  -- FIXME: needs better color!
     ["castbarGeneric"] = { 0.86, 0.5, 0, 1 },
+    ["mp5Spark"] = { 0.5, 0.5, 0.5, 0.5 },  -- FIXME: needs better color!
     ["hpValue"] = "DDDDDD",
     ["hpDeficit"] = "CC2222",
     ["name"] = "DDDDDD",
